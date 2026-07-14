@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace HuniCafe.Models
+{
+    public class Order
+    {
+        // Hàm khởi tạo (Constructor) để tự tạo mới danh sách OrderDetails khi tạo Đơn hàng
+        public Order()
+        {
+            OrderDetails = new HashSet<OrderDetail>();
+        }
+
+        [Key]
+        public int OrderID { get; set; }
+
+        public int UserID { get; set; }
+
+        public DateTime OrderDate { get; set; }
+
+        public decimal TotalAmount { get; set; }
+
+        public string Status { get; set; }
+
+        [ForeignKey("UserID")]
+        public virtual User User { get; set; }
+
+        // Navigation Property
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+    }
+}

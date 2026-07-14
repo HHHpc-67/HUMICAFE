@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Trang Chủ";
+    Layout = "~/Views/LayOutPage/_LayoutMainPage.cshtml";
+}
+<!-- Phần Banner/Hero của trang chủ -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Welcome to HUMI CAFE</h1>
+        <p>
+            Cà phê thơm, bánh ngọt ngon và những khoảnh khắc khó quên.
+        </p>
+        <a href="@Url.Action("Index", "Product")" class="btn-order">
+            Đặt Hàng Ngay
+        </a>
+    </div>
+</section>
+
+<!-- Danh mục món ăn -->
+<section class="categories">
+    <h2>Danh mục món</h2>
+    <div class="category-list">
+        <div class="category-card">
+            <h3>Coffee</h3>
+        </div>
+        <div class="category-card">
+            <h3>Tea</h3>
+        </div>
+        <div class="category-card">
+            <h3>Cake</h3>
+        </div>
+    </div>
+</section>
+
+<!-- Sản phẩm nổi bật -->
+<section class="featured">
+    <h2>Featured Products</h2>
+    <div class="product-list">
+        <!-- Sau này sẽ dùng vòng lặp foreach để đổ dữ liệu từ database vào đây -->
+    </div>
+</section>

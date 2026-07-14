@@ -1,0 +1,117 @@
+﻿* {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* RESET để dễ tính width hơn*/ 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+  
+    background: #f7f3ef;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+ul {
+    list-style: none;
+}
+
+
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 80px;
+    background: #5C4033;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+/* ================= menu ================= */
+.nav-links {
+    display: flex;
+    justify-content: space-between;
+    gap: 35px;
+    color: white;
+    font-size: 18px;
+    transition: 0.3s;
+}
+    .nav-links a:hover {
+        color: #f7d9a7;
+        transform: translateY(-6px);
+    }
+
+/* ================= logo ================= */
+.logo a {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/* ================= log in out ================= */
+.account {
+    display: flex;
+    gap: 15px;
+    color: white;
+    font-size: 17px;
+}
+    .account a:hover {
+        color: #f7d9a7;
+    }
+
+/* ================= main ================= */
+
+.container {
+    margin: 5px;
+    padding: 85px 5px 5px  ;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+    background: #5C4033;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 80px;
+}
+
+
+/* ================= RESPONSIVE ================= cần sửa */
+
+@media(max-width:900px) {
+
+    .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .account {
+        justify-content: center;
+    }
+}

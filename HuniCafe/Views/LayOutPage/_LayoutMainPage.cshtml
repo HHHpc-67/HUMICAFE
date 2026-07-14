@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - HuniCafe</title>
+    <link href="~/Content/Style_Cafe/layout.css" rel="stylesheet" />
+    <link href="~/Content/Style_Cafe/Home.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Thanh Menu dùng chung cho toàn bộ các trang -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="@Url.Action("MainPage", "Home")">HUMI CAFE</a>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="@Url.Action("MainPage", "Home")">Home</a></li>
+                <li><a href="@Url.Action("Index", "Product")">Menu</a></li>
+                <li><a href="@Url.Action("Index", "Cart")">Giỏ Hàng</a></li>
+                <li><a href="@Url.Action("MyOrders", "Order")">Đơn Hàng</a></li>
+            </ul>
+
+            <div class="account">
+                <a href="@Url.Action("Login", "Account")">Login</a>
+                <span>|</span>
+                <a href="@Url.Action("Register", "Account")">Register</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Nội dung riêng của từng trang sẽ tự động chui vào đây -->
+    <main class="container">
+        @RenderBody()
+    </main>
+
+    <!-- Phần chân trang -->
+    <footer>
+        <p>&copy; @DateTime.Now.Year - HUMICAFE</p>
+    </footer>
+</body>
+</html>
