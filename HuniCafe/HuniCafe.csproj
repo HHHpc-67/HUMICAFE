@@ -162,7 +162,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Style_Cafe\cart.css" />
-    <Content Include="Content\Style_Cafe\Home.css" />
+    <Content Include="Content\Style_Cafe\Banner.css" />
     <Content Include="Content\Style_Cafe\layout.css" />
     <Content Include="Content\Style_Cafe\order.css" />
     <Content Include="Content\Style_Cafe\product.css" />

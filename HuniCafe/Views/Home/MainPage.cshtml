@@ -2,39 +2,72 @@
     ViewBag.Title = "Trang Chủ";
     Layout = "~/Views/LayOutPage/_LayoutMainPage.cshtml";
 }
-<!-- Phần Banner/Hero của trang chủ -->
-<section class="hero">
+
+<!-- 1. PHẦN BANNER CHÀO MỪNG (HERO) -->
+<section class="huni-hero">
     <div class="hero-content">
-        <h1>Welcome to HUMI CAFE</h1>
+        <h1>Welcome to <span>HUNI CAFE</span></h1>
         <p>
             Cà phê thơm, bánh ngọt ngon và những khoảnh khắc khó quên.
         </p>
-        <a href="@Url.Action("Index", "Product")" class="btn-order">
+        <a href="@Url.Action("Index", "Product")" class="btn-huni-order">
             Đặt Hàng Ngay
         </a>
     </div>
 </section>
 
-<!-- Danh mục món ăn -->
-<section class="categories">
-    <h2>Danh mục món</h2>
-    <div class="category-list">
-        <div class="category-card">
-            <h3>Coffee</h3>
-        </div>
-        <div class="category-card">
-            <h3>Tea</h3>
-        </div>
-        <div class="category-card">
-            <h3>Cake</h3>
-        </div>
-    </div>
-</section>
+<!-- Bọc toàn bộ nội dung chính vào CONTAINER để căn chỉnh thẳng hàng, không bị lệch lề -->
+<div class="container">
 
-<!-- Sản phẩm nổi bật -->
-<section class="featured">
-    <h2>Featured Products</h2>
-    <div class="product-list">
-        <!-- Sau này sẽ dùng vòng lặp foreach để đổ dữ liệu từ database vào đây -->
-    </div>
-</section>
+    <!-- 2. DANH MỤC MÓN ĂN -->
+    <section class="huni-categories-section">
+        <h2>Danh mục món</h2>
+        <div class="huni-category-list">
+            <div class="huni-category-card">
+                <h3>Coffee</h3>
+            </div>
+            <div class="huni-category-card">
+                <h3>Tea</h3>
+            </div>
+            <div class="huni-category-card">
+                <h3>Cake</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. SẢN PHẨM NỔI BẬT (Đã được căn giữa ngay ngắn) -->
+    <section class="huni-categories-section" style="margin-top: 80px;">
+        <h2>Featured Products</h2>
+
+        <!-- Khung chứa danh sách sản phẩm -->
+        <div class="huni-category-list" style="margin-top: 40px;">
+
+            <!-- DEMO TRƯỚC 3 SẢN PHẨM (Để trang trí cho đẹp mắt, sau này có database bạn sẽ viết vòng lặp ở đây sau) -->
+            <div class="huni-category-card" style="height: auto; padding: 20px; flex-direction: column; gap: 15px;">
+                <div style="width: 100%; height: 120px; background: #ebdccb; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    ☕
+                </div>
+                <h4 style="font-size: 18px; color: #142F55; font-weight: 700; margin: 0;">Cà Phê Sữa</h4>
+                <span style="color: #A4724E; font-weight: 700;">29.000đ</span>
+            </div>
+
+            <div class="huni-category-card" style="height: auto; padding: 20px; flex-direction: column; gap: 15px;">
+                <div style="width: 100%; height: 120px; background: #ebdccb; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    🍵
+                </div>
+                <h4 style="font-size: 18px; color: #142F55; font-weight: 700; margin: 0;">Trà Đào Sả</h4>
+                <span style="color: #A4724E; font-weight: 700;">35.000đ</span>
+            </div>
+
+            <div class="huni-category-card" style="height: auto; padding: 20px; flex-direction: column; gap: 15px;">
+                <div style="width: 100%; height: 120px; background: #ebdccb; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    🍰
+                </div>
+                <h4 style="font-size: 18px; color: #142F55; font-weight: 700; margin: 0;">Bánh Tiramisu</h4>
+                <span style="color: #A4724E; font-weight: 700;">45.000đ</span>
+            </div>
+
+        </div>
+    </section>
+
+</div>

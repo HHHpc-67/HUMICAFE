@@ -1,19 +1,28 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title - HuniCafe</title>
+
+    <!-- Link file CSS Layout (Chứa Navbar, Footer, Reset) -->
     <link href="~/Content/Style_Cafe/layout.css" rel="stylesheet" />
-    <link href="~/Content/Style_Cafe/Home.css" rel="stylesheet" />
+
+    <!-- Link file CSS riêng của trang chủ -->
+    <link href="~/Content/Style_Cafe/Banner.css" rel="stylesheet" />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Thanh Menu dùng chung cho toàn bộ các trang -->
     <header>
         <nav class="navbar">
             <div class="logo">
-                <a href="@Url.Action("MainPage", "Home")">HUMI CAFE</a>
+                <!-- Đổi từ HUMI thành HUNI và bọc chữ CAFE vào thẻ span để tạo điểm nhấn màu sắc -->
+                <a href="@Url.Action("MainPage", "Home")">HUNI <span>CAFE</span></a>
             </div>
 
             <ul class="nav-links">
@@ -25,20 +34,20 @@
 
             <div class="account">
                 <a href="@Url.Action("Login", "Account")">Login</a>
-                <span>|</span>
+                <span class="divider">|</span>
                 <a href="@Url.Action("Register", "Account")">Register</a>
             </div>
         </nav>
     </header>
 
-    <!-- Nội dung riêng của từng trang sẽ tự động chui vào đây -->
-    <main class="container">
+    <!-- Đổi thành thẻ <main> sạch, không để class container ở đây để tránh bị trùng lặp khoảng đệm -->
+    <main>
         @RenderBody()
     </main>
 
     <!-- Phần chân trang -->
     <footer>
-        <p>&copy; @DateTime.Now.Year - HUMICAFE</p>
+        <p>&copy; @DateTime.Now.Year - HUNICAFE. All rights reserved.</p>
     </footer>
 </body>
 </html>
