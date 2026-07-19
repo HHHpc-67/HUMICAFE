@@ -121,7 +121,7 @@ footer {
         height: auto;
         padding: 20px;
         gap: 15px;
-        position: relative; /* Trên điện thoại nên để trôi tự nhiên thay vì fixed để tránh mất diện tích màn hình */
+        position: relative;
     }
 
     .nav-links {
@@ -136,6 +136,6 @@ footer {
     }
 
     .container {
-        padding-top: 30px; /* Giảm padding vì Navbar trên mobile không còn đè lên nữa */
+        padding-top: 30px; 
     }
 }

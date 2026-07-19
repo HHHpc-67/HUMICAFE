@@ -1,84 +1,81 @@
-﻿/* ================= 1. BANNER CHÀO MỪNG (HERO) ================= */
+﻿
 .huni-hero {
     width: 100%;
     height: 250px;
-    background: #ebdccb; /* Màu nền be-nâu ấm áp */
+    background: #ebdccb;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    border-radius: 15px;
     padding: 20px;
-    /* CHÌA KHÓA Ở ĐÂY: Tăng từ 100px lên 120px hoặc 140px để đẩy hẳn banner xuống */
     margin-top: 120px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
-/* Tiêu đề Welcome */
+
 .hero-content h1 {
-    color: #142F55; /* Màu xanh Navy đậm từ logo của bạn */
+    color: #142F55; 
     font-size: 32px;
     font-weight: 800;
     margin-bottom: 10px;
 }
 
-/* Đoạn text mô tả nhỏ */
+
 .hero-content p {
-    color: #555555; /* Chuyển từ màu trắng sang màu xám đậm để hiển thị rõ ràng trên nền be */
+    color: #555555;
     font-size: 18px;
     margin-bottom: 25px;
     font-weight: 500;
 }
 
 
-/* ================= 2. NÚT ĐẶT HÀNG (BUTTON) ================= */
+/* ================= NÚT ĐẶT HÀNG ================= */
 .btn-huni-order {
     display: inline-block;
-    border-radius: 8px; /* Bo góc nhẹ nhàng hiện đại */
-    background-color: #A4724E; /* Màu nâu hạt cà phê chuẩn từ Logo của bạn */
-    color: white !important; /* Đảm bảo chữ luôn là màu trắng */
+    border-radius: 8px;
+    background-color: #A4724E; 
+    color: white !important; 
     padding: 12px 28px;
     font-weight: 600;
-    text-decoration: none; /* Xóa gạch chân mặc định của thẻ a */
-    transition: all 0.4s ease; /* Hiệu ứng mượt mà hơn */
+    text-decoration: none; 
+    transition: all 0.4s ease; 
 }
 
-    /* Hiệu ứng khi di chuột vào nút */
+   
     .btn-huni-order:hover {
-        background-color: #142F55; /* Chuyển sang xanh Navy sang trọng khi hover */
+        background-color: #142F55; 
         color: white !important;
-        transform: translateY(-4px); /* Nhấc nhẹ nút lên */
-        box-shadow: 0 6px 15px rgba(20, 47, 85, 0.3); /* Bóng đổ màu xanh nhẹ */
+        transform: translateY(-4px); 
+        box-shadow: 0 6px 15px rgba(20, 47, 85, 0.3); /* 6px Y, 0px X, 15 blur */
         text-decoration: none;
     }
 
 
-/* ================= 3. DANH MỤC MÓN (CATEGORIES) ================= */
-.huni-categories-section {
+/* ================= (CATEGORIES) ================= */
+.huni-cate {
     margin-top: 50px;
     text-align: center;
 }
 
-    /* Tiêu đề "Danh mục món" */
-    .huni-categories-section h2 {
+   
+    .huni-cate h2 {
         color: #142F55;
         font-weight: 700;
         font-size: 24px;
         margin-bottom: 30px;
     }
 
-/* Khung chứa các ô danh mục */
+
 .huni-category-list {
     display: flex;
     justify-content: center;
     gap: 30px;
-    flex-wrap: wrap; /* Tự động xuống dòng nếu màn hình nhỏ (responsive) */
+    flex-wrap: wrap; /* Tự động xuống dòng nếu màn hình nhỏ */
 }
 
-/* Từng thẻ danh mục (Coffee, Tea, Cake) */
+/* cate card */
 .huni-category-card {
     width: 220px;
-    height: 150px; /* Thu bớt chiều cao một chút cho cân đối */
+    height: 150px; 
     background: white;
     border-radius: 12px;
     display: flex;
@@ -86,27 +83,26 @@
     align-items: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 1px solid #eaeaea; /* Sửa lỗi "border: black" cũ bằng viền mảnh xám tinh tế */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02); /* Thêm bóng đổ nhẹ ban đầu */
 }
 
-    /* Hiệu ứng hover cho thẻ danh mục */
+
     .huni-category-card:hover {
         transform: translateY(-6px);
-        border-color: #A4724E; /* Đổi màu viền sang nâu cà phê khi hover */
-        box-shadow: 0 10px 20px rgba(164, 114, 78, 0.15); /* Đổ bóng màu ấm nhẹ */
+        border-color: #A4724E; 
+        box-shadow: 0 10px 20px rgba(164, 114, 78, 0.15); 
     }
 
-    /* Chữ bên trong thẻ danh mục */
+ 
     .huni-category-card h3 {
         font-size: 20px;
         font-weight: 700;
-        color: #142F55; /* Màu xanh Navy đậm của logo giúp chữ nổi bật */
+        color: #142F55;
         margin: 0;
         transition: color 0.3s ease;
     }
 
-    /* Đổi màu chữ sang nâu khi hover vào ô */
+
     .huni-category-card:hover h3 {
         color: #A4724E;
     }
