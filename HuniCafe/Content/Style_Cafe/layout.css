@@ -1,23 +1,21 @@
-﻿/* ==========================================================================
-   1. RESET & SETUP HỆ THỐNG (Định hình khung trang web)
-   ========================================================================== */
+﻿
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', 'Montserrat', sans-serif; /* Thêm Montserrat dự phòng cho sang */
+    font-family: 'Poppins', 'Montserrat', sans-serif;
 }
 
 body {
-    background: #FBFBFA; /* Màu nền sáng tinh tế, sang trọng hơn màu be cũ */
-    color: #2C3E50; /* Màu chữ xám đậm giúp dịu mắt và chuyên nghiệp */
+    background: #FBFBFA; 
+    color: #2C3E50; 
     line-height: 1.6;
 }
 
-/* KHÔNG đặt a { color: white; } chung toàn trang, tránh lỗi tàng hình chữ */
+
 a {
     text-decoration: none;
-    transition: all 0.3s ease; /* Tạo hiệu ứng chuyển động mượt mà cho mọi liên kết */
+    transition: all 0.3s ease;
 }
 
 ul {
@@ -25,9 +23,7 @@ ul {
 }
 
 
-/* ==========================================================================
-   2. THANH ĐIỀU HƯỚNG (NAVBAR) - Chuẩn màu Navy & Nâu Cafe từ Logo
-   ========================================================================== */
+
 .navbar {
     width: 100%;
     height: 80px;
@@ -35,16 +31,16 @@ ul {
     justify-content: space-between;
     align-items: center;
     padding: 0 80px;
-    background: #142F55; /* Đổi sang màu xanh Navy đậm chất Huni */
-    border-bottom: 3px solid #A4724E; /* Thêm đường chỉ viền màu nâu hạt dẻ cực sang */
+    background: #142F55; 
+
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 999;
-    box-shadow: 0 4px 12px rgba(20, 47, 85, 0.1);
+ 
+ 
 }
 
-/* LOGO thương hiệu */
+/*================================== LOGO */
 .logo a {
     color: white;
     font-size: 28px;
@@ -52,12 +48,12 @@ ul {
     letter-spacing: 2px;
 }
 
-    /* Đổi chữ "CAFE" trong logo thành màu nâu cho giống Logo gốc của bạn */
+
     .logo a span {
         color: #A4724E;
     }
 
-/* MENU điều hướng chính */
+/* MENU ================================================ */
 .nav-links {
     display: flex;
     justify-content: space-between;
@@ -66,17 +62,17 @@ ul {
 }
 
     .nav-links a {
-        color: rgba(255, 255, 255, 0.9); /* Chữ trắng dịu */
+        color: white;
         font-weight: 500;
-        display: inline-block; /* Bắt buộc có để hiệu ứng translateY hoạt động */
+        display: inline-block; 
     }
 
         .nav-links a:hover {
-            color: #A4724E; /* Hover sang màu nâu hạt cà phê */
-            transform: translateY(-3px); /* Nhấc nhẹ chữ lên vừa phải (3px là đẹp nhất) */
+            color: #A4724E; 
+            transform: translateY(-3px);
         }
 
-/* KHU VỰC TÀI KHOẢN (Đăng nhập / Đăng ký) */
+/* TK =========================================== */
 .account {
     display: flex;
     gap: 15px;
@@ -84,7 +80,7 @@ ul {
 }
 
     .account a {
-        color: rgba(255, 255, 255, 0.9);
+        color: white;
         font-weight: 500;
     }
 
@@ -93,34 +89,32 @@ ul {
         }
 
 
-/* ==========================================================================
-   3. KHUNG CHỨA NỘI DUNG CHÍNH (CONTAINER) - Sửa lỗi lệch lề
-   ========================================================================== */
+
+
+
 .container {
-    max-width: 1200px; /* Giới hạn chiều rộng tối đa để không bị tràn màn hình rộng */
-    margin: 0 auto; /* Căn lề tự động giúp toàn bộ trang web nằm giữa màn hình */
-    padding: 120px 20px 40px; /* 120px phía trên để tránh bị thanh Navbar cố định (fixed) đè lên */
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 120px 20px 40px;
 }
 
 
 /* ==========================================================================
-   4. CHÂN TRANG (FOOTER)
-   ========================================================================== */
+   (FOOTER) */
 footer {
-    background: #142F55; /* Đồng bộ màu xanh Navy với Navbar */
-    color: rgba(255, 255, 255, 0.8);
+    background: #142F55;
+    color: white;
     text-align: center;
     padding: 30px 20px;
     margin-top: 80px;
-    border-top: 3px solid #A4724E; /* Đường chỉ viền màu nâu đồng bộ */
+
     font-weight: 500;
     letter-spacing: 1px;
 }
 
 
 /* ==========================================================================
-   5. RESPONSIVE (Tương thích thiết bị di động)
-   ========================================================================== */
+   media */
 @media(max-width: 900px) {
     .navbar {
         flex-direction: column;
