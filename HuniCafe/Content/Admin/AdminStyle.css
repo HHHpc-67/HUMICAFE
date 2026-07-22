@@ -14,20 +14,26 @@ body {
 /* Sidebar Admin */
 .admin-sidebar {
     width: 250px;
-    background-color: #1e293b;
+    background-color: #142F55;
     color: #fff;
     padding: 20px 0;
 }
 
+/* Logo Admin */
 .admin-brand {
     font-size: 20px;
     font-weight: bold;
     text-align: center;
     padding-bottom: 20px;
     border-bottom: 1px solid #334155;
-    color: #38bdf8;
+    color: #ffffff;
 }
 
+    .admin-brand span {
+        color: #b08968;
+    }
+
+/* Menu Sidebar */
 .admin-menu {
     list-style: none;
     margin-top: 20px;
@@ -44,7 +50,7 @@ body {
         .admin-menu li a:hover {
             background-color: #334155;
             color: #fff;
-            border-left: 4px solid #38bdf8;
+            border-left: 4px solid #b08968;
         }
 
 /* Main Content */

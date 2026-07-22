@@ -187,7 +187,12 @@
     <Compile Include="Migrations\202607220300498_AddProductImage.Designer.cs">
       <DependentUpon>202607220300498_AddProductImage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202607221502571_AddAdminAccountTable.cs" />
+    <Compile Include="Migrations\202607221502571_AddAdminAccountTable.Designer.cs">
+      <DependentUpon>202607221502571_AddAdminAccountTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AdminAccount.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\HuniCafeDB.cs" />
     <Compile Include="Models\Order.cs" />
@@ -199,6 +204,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Admin\AdminStyle.css" />
+    <Content Include="Content\Images\Users_profile.png" />
+    <Content Include="Content\Login_Register\LoginStyle.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -239,6 +246,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Login_JS\Login_Page.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -254,10 +262,11 @@
     <Content Include="Views\Home\MainPage.cshtml" />
     <Content Include="Views\Admin\Admin.cshtml" />
     <Content Include="Views\LayOutPage\_AdminPage.cshtml" />
+    <Content Include="Views\Admin\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Nhan_Vien\" />
+    <Folder Include="Content\Employee\" />
     <Folder Include="Content\Users\" />
   </ItemGroup>
   <ItemGroup>
@@ -293,6 +302,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202607220300498_AddProductImage.resx">
       <DependentUpon>202607220300498_AddProductImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202607221502571_AddAdminAccountTable.resx">
+      <DependentUpon>202607221502571_AddAdminAccountTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

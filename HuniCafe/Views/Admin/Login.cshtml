@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập Admin - HuniCafe</title>
+    <link href="~/Content/Login_Register/LoginStyle.css" rel="stylesheet" />
+</head>
+<body class="login-body">
+
+    <div class="login-card">
+        <h2>HuniCafe</h2>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert-danger">
+                @ViewBag.Error
+            </div>
+        }
+
+        @using (Html.BeginForm("Login", "Admin", FormMethod.Post, new { id = "loginForm" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label for="username">Tên đăng nhập</label>
+                <input type="text" id="username" name="username" class="form-control"/>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" name="password" class="form-control"/>
+            </div>
+
+            <button type="submit" class="btn-login">Đăng nhập</button>
+        }
+    </div>
+
+    <script src="~/Scripts/Admin/login.js"></script>
+</body>
+</html>
