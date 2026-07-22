@@ -21,8 +21,8 @@ namespace HuniCafe.Models
 
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
-      
 
+        public string ImagePublicId { get; set; }
         public string Image { get; set; }
 
         public int Stock { get; set; }      // Số lượng còn lại

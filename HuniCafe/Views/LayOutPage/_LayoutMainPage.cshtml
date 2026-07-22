@@ -6,19 +6,22 @@
     <title>@ViewBag.Title - HuniCafe</title>
     <link href="~/Content/Style_Cafe/layout.css" rel="stylesheet" />
     <link href="~/Content/Style_Cafe/Banner.css" rel="stylesheet" />
+<<<<<<< HEAD
     <!-- Google Fonts -->
+=======
+    <link href="~/Content/Style_Cafe/product.css" rel="stylesheet" />
+>>>>>>> 20ec57d89068fb46711f41dd1fece40e0a40922d
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Thanh Menu dùng chung cho toàn bộ các trang -->
     <header>
         <nav class="navbar">
-            <div class="logo">
-                <!-- Đổi từ HUMI thành HUNI và bọc chữ CAFE vào thẻ span để tạo điểm nhấn màu sắc -->
+            <div class="logo">           
                 <a href="@Url.Action("MainPage", "Home")">HUNI <span>CAFE</span></a>
             </div>
+
 
             <ul class="nav-links">
                 <li><a href="@Url.Action("MainPage", "Home")">Home</a></li>
@@ -35,12 +38,12 @@
         </nav>
     </header>
 
-    <!-- Đổi thành thẻ <main> sạch, không để class container ở đây để tránh bị trùng lặp khoảng đệm -->
+
     <main>
         @RenderBody()
     </main>
 
-    <!-- Phần chân trang -->
+
     <footer>
         <p>&copy; @DateTime.Now.Year - HUNICAFE. All rights reserved.</p>
     </footer>

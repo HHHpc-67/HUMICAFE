@@ -3,7 +3,7 @@
     Layout = "~/Views/LayOutPage/_LayoutMainPage.cshtml";
 }
 
-<!-- 1. PHẦN BANNER CHÀO MỪNG (HERO) -->
+@model HuniCafe.Models.ViewModel.HomeViewModel
 <section class="huni-hero">
     <div class="hero-content">
         <h1>Welcome to <span>HUNI CAFE</span></h1>
@@ -16,58 +16,64 @@
     </div>
 </section>
 
-<!-- Bọc toàn bộ nội dung chính vào CONTAINER để căn chỉnh thẳng hàng, không bị lệch lề -->
+
 <div class="container">
 
-    <!-- 2. DANH MỤC MÓN ĂN -->
-    <section class="huni-categories-section">
+    @*=========================danh muc mon*@
+
+
+    <section class="huni-cate">
         <h2>Danh mục món</h2>
         <div class="huni-category-list">
-            <div class="huni-category-card">
-                <h3>Coffee</h3>
-            </div>
-            <div class="huni-category-card">
-                <h3>Tea</h3>
-            </div>
-            <div class="huni-category-card">
-                <h3>Cake</h3>
-            </div>
+            @foreach (var item in Model.Categories)
+            {
+                <div class="huni-category-card">
+                    <h3>@item.CategoryName</h3>
+                </div>
+            }
+            @*<div class="huni-category-card">
+            <h3>Coffee</h3>
+        </div>
+        <div class="huni-category-card">
+            <h3>Tea</h3>
+        </div>
+        <div class="huni-category-card">
+            <h3>Cake</h3>
+        </div>*@
         </div>
     </section>
 
-    <!-- 3. SẢN PHẨM NỔI BẬT (Đã được căn giữa ngay ngắn) -->
-    <section class="huni-categories-section" style="margin-top: 80px;">
-        <h2>Featured Products</h2>
 
-        <!-- Khung chứa danh sách sản phẩm -->
-        <div class="huni-category-list" style="margin-top: 40px;">
+ 
+        <section class="featured">
+            <h2>Sản Phẩm Nổi Bật</h2>
+            <div class="product-list">
 
-            <!-- DEMO TRƯỚC 3 SẢN PHẨM (Để trang trí cho đẹp mắt, sau này có database bạn sẽ viết vòng lặp ở đây sau) -->
-            <div class="huni-category-card" style="height: auto; padding: 20px; flex-direction: column; gap: 15px;">
-                <div style="width: 100%; height: 120px; background: #ebdccb; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                    ☕
-                </div>
-                <h4 style="font-size: 18px; color: #142F55; font-weight: 700; margin: 0;">Cà Phê Sữa</h4>
-                <span style="color: #A4724E; font-weight: 700;">29.000đ</span>
+                @foreach (var product in Model.Products)
+                {
+                    <div class="product-card">
+
+                        <div class="product-image">
+                            <img src="" alt="@product.ProductName" />
+                        </div>
+
+                        <div class="product-info">
+                            <h3>@product.ProductName</h3>
+
+                            <p class="price">
+                                @String.Format("{0:N0} VNĐ", product.Price) // Định dạng giá tiền với dấu phẩy 
+                            </p>
+
+                            <a href="@Url.Action("Details", "Product", new { id = product.ProductID })"
+                               class="detail-btn">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                }
             </div>
+        </section>
 
-            <div class="huni-category-card" style="height: auto; padding: 20px; flex-direction: column; gap: 15px;">
-                <div style="width: 100%; height: 120px; background: #ebdccb; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                    🍵
-                </div>
-                <h4 style="font-size: 18px; color: #142F55; font-weight: 700; margin: 0;">Trà Đào Sả</h4>
-                <span style="color: #A4724E; font-weight: 700;">35.000đ</span>
-            </div>
-
-            <div class="huni-category-card" style="height: auto; padding: 20px; flex-direction: column; gap: 15px;">
-                <div style="width: 100%; height: 120px; background: #ebdccb; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                    🍰
-                </div>
-                <h4 style="font-size: 18px; color: #142F55; font-weight: 700; margin: 0;">Bánh Tiramisu</h4>
-                <span style="color: #A4724E; font-weight: 700;">45.000đ</span>
-            </div>
-
-        </div>
-    </section>
+       
 
 </div>
