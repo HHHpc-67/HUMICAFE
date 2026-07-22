@@ -1,0 +1,72 @@
+﻿* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f6f9;
+}
+
+/* Sidebar Admin */
+.admin-sidebar {
+    width: 250px;
+    background-color: #1e293b;
+    color: #fff;
+    padding: 20px 0;
+}
+
+.admin-brand {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #334155;
+    color: #38bdf8;
+}
+
+.admin-menu {
+    list-style: none;
+    margin-top: 20px;
+}
+
+    .admin-menu li a {
+        display: block;
+        padding: 12px 25px;
+        color: #cbd5e1;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+        .admin-menu li a:hover {
+            background-color: #334155;
+            color: #fff;
+            border-left: 4px solid #38bdf8;
+        }
+
+/* Main Content */
+.admin-main {
+    flex: 1;
+    padding: 30px;
+}
+
+.admin-header {
+    background: #fff;
+    padding: 15px 30px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}

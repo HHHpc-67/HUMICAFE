@@ -1,0 +1,38 @@
+﻿@{
+    Layout = null; 
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - HuniCafe Admin</title>
+    <link href="~/Content/Admin/AdminStyle.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="admin-sidebar">
+        <div class="admin-brand">HUNI ADMIN</div>
+        <ul class="admin-menu">
+            <li><a href="@Url.Action("Admin", "Admin")">Dashboard</a></li>
+            <li><a href="@Url.Action("Index", "CategoryManager")">Quản lý Danh mục</a></li>
+            <li><a href="@Url.Action("Index", "ProductManager")">Quản lý Sản phẩm</a></li>
+            <li><a href="@Url.Action("Index", "OrderManager")">Quản lý Đơn hàng</a></li>
+            <li><a href="@Url.Action("MainPage", "Home")" target="_blank">Xem Trang chủ Web</a></li>
+        </ul>
+    </div>
+
+    <div class="admin-main">
+        <div class="admin-header">
+            <h2>@ViewBag.Title</h2>
+            <div>Xin chào, <strong>Admin</strong></div>
+        </div>
+
+        <div class="admin-card">
+            @RenderBody()
+        </div>
+    </div>
+
+</body>
+</html>
