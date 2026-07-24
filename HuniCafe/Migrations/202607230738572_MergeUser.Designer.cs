@@ -7,18 +7,18 @@ namespace HuniCafe.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.5.2")]
-    public sealed partial class AddAdminAccountTable : IMigrationMetadata
+    public sealed partial class MergeUser : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddAdminAccountTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(MergeUser));
         
         string IMigrationMetadata.Id
         {
-            get { return "202607221502571_AddAdminAccountTable"; }
+            get { return "202607230738572_MergeUser"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return Resources.GetString("Source"); }
+            get { return null; }
         }
         
         string IMigrationMetadata.Target

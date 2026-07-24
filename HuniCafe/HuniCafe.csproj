@@ -174,8 +174,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -187,18 +187,18 @@
     <Compile Include="Migrations\202607220300498_AddProductImage.Designer.cs">
       <DependentUpon>202607220300498_AddProductImage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202607221502571_AddAdminAccountTable.cs" />
-    <Compile Include="Migrations\202607221502571_AddAdminAccountTable.Designer.cs">
-      <DependentUpon>202607221502571_AddAdminAccountTable.cs</DependentUpon>
+    <Compile Include="Migrations\202607230738572_MergeUser.cs" />
+    <Compile Include="Migrations\202607230738572_MergeUser.Designer.cs">
+      <DependentUpon>202607230738572_MergeUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AdminAccount.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\HuniCafeDB.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Users.cs" />
     <Compile Include="Models\ViewModel\HomeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -260,9 +260,9 @@
     <Content Include="Views\LayOutPage\Error.cshtml" />
     <Content Include="Views\LayOutPage\_LayoutMainPage.cshtml" />
     <Content Include="Views\Home\MainPage.cshtml" />
-    <Content Include="Views\Admin\Admin.cshtml" />
+    <Content Include="Views\Users\Admin.cshtml" />
     <Content Include="Views\LayOutPage\_AdminPage.cshtml" />
-    <Content Include="Views\Admin\Login.cshtml" />
+    <Content Include="Views\Users\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -303,8 +303,8 @@
     <EmbeddedResource Include="Migrations\202607220300498_AddProductImage.resx">
       <DependentUpon>202607220300498_AddProductImage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202607221502571_AddAdminAccountTable.resx">
-      <DependentUpon>202607221502571_AddAdminAccountTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202607230738572_MergeUser.resx">
+      <DependentUpon>202607230738572_MergeUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

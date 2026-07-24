@@ -4,16 +4,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HuniCafe.Models
 {
-    public class User
+    public class Users
     {
         // Constructor tự động khởi tạo danh sách Orders tránh lỗi Null
-        public User()
+        public Users()
         {
             Orders = new HashSet<Order>();
         }
 
         [Key]
         public int UserID { get; set; }
+
+        public string Username { get; set; }
 
         [Required]
         [StringLength(100)]

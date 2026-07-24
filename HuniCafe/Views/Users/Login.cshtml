@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Đăng nhập Admin - HuniCafe</title>
+    <title>Đăng nhập - HuniCafe</title>
     <link href="~/Content/Login_Register/LoginStyle.css" rel="stylesheet" />
 </head>
 <body class="login-body">
@@ -22,18 +22,18 @@
             </div>
         }
 
-        @using (Html.BeginForm("Login", "Admin", FormMethod.Post, new { id = "loginForm" }))
+        @using (Html.BeginForm("Login", "Users", FormMethod.Post, new { id = "loginForm" }))
         {
             @Html.AntiForgeryToken()
 
             <div class="form-group">
-                <label for="username">Tên đăng nhập</label>
-                <input type="text" id="username" name="username" class="form-control"/>
+                <label for="account">Tên đăng nhập hoặc Email</label>
+                <input type="text" id="account" name="account" class="form-control" placeholder="Nhập username hoặc email" required />
             </div>
 
             <div class="form-group">
                 <label for="password">Mật khẩu</label>
-                <input type="password" id="password" name="password" class="form-control"/>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required />
             </div>
 
             <button type="submit" class="btn-login">Đăng nhập</button>

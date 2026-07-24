@@ -25,7 +25,7 @@ namespace HuniCafe.Models
         public string Status { get; set; }
 
         [ForeignKey("UserID")]
-        public virtual User User { get; set; }
+        public virtual Users User { get; set; }
 
         // Navigation Property
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
