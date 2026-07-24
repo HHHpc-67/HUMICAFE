@@ -32,7 +32,6 @@ ul {
     align-items: center;
     padding: 0 80px;
     background: #142F55; 
-
     position: fixed;
     top: 0;
     left: 0;
@@ -113,7 +112,7 @@ footer {
 
 
 /* media */
-@media(max-width: 900px) {
+@media(max-width: 990px) {
     .navbar {
         flex-direction: column;
         height: auto;

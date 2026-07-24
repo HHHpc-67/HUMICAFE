@@ -29,12 +29,14 @@
 
             context.Products.AddOrUpdate(
                 p => p.ProductName,
-                new Product { ProductName = "Cà phê sữa", Description = "Cà phê pha với sữa đặc", Price = 30000, CategoryID = 1 },
-                new Product { ProductName = "Cà phê đen", Description = "cà phê nguyên chất không sữa", Price = 25000, CategoryID = 1 },
-                new Product { ProductName = "Trà sữa", Description = "Trà pha với sữa và trân châu", Price = 35000, CategoryID = 2 },
-                new Product { ProductName = "Bánh ngọt", Description = "Bánh ngọt hấp dẫn", Price = 40000, CategoryID = 3 },
-                new Product { ProductName = "Nước ép trái cây", Description  = "Nước ép tươi mát", Price = 30000, CategoryID = 4 }
+                new Product { ProductName = "Cà phê sữa", Description = "Cà phê pha với sữa đặc", Price = 30000, CategoryID = 1, Image = "https://res.cloudinary.com/dgzvq4bfv/image/upload/v1784874650/Screenshot_2026-07-24_133017_gqtuij.png" },
+                new Product { ProductName = "Cà phê đen", Description = "cà phê nguyên chất không sữa", Price = 25000, CategoryID = 1, Image = "https://res.cloudinary.com/dgzvq4bfv/image/upload/v1784874650/Screenshot_2026-07-24_133017_gqtuij.png" },
+                new Product { ProductName = "Trà sữa", Description = "Trà pha với sữa và trân châu", Price = 35000, CategoryID = 2, Image= "https://res.cloudinary.com/dgzvq4bfv/image/upload/v1784874650/Screenshot_2026-07-24_133017_gqtuij.png" },
+                new Product { ProductName = "Bánh ngọt", Description = "Bánh ngọt hấp dẫn", Price = 40000, CategoryID = 3, Image = "https://res.cloudinary.com/dgzvq4bfv/image/upload/v1784874650/Screenshot_2026-07-24_133017_gqtuij.png" },
+                new Product { ProductName = "Nước ép trái cây", Description  = "Nước ép tươi mát", Price = 30000, CategoryID = 4 , Image = "https://res.cloudinary.com/dgzvq4bfv/image/upload/v1784874650/Screenshot_2026-07-24_133017_gqtuij.png" }
             );
+
+          
         }
     }
 }
