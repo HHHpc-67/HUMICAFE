@@ -22,7 +22,7 @@ namespace HuniCafe.Models
 
         public decimal TotalAmount { get; set; }
 
-        public string Status { get; set; }
+        public string Status { get; set; } //pending, done .....
 
         [ForeignKey("UserID")]
         public virtual Users User { get; set; }

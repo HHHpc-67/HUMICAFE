@@ -10,6 +10,7 @@ body {
     background: #FBFBFA; 
     color: #2C3E50; 
     line-height: 1.6;
+
 }
 
 
@@ -94,7 +95,7 @@ ul {
 .container {
     max-width: 1200px; 
     margin: 0 auto; 
-    padding: 120px 20px 40px;
+    padding: 100px 20px 40px;
 }
 
 

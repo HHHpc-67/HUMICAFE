@@ -1,0 +1,31 @@
+﻿@model HuniCafe.Models.ViewModel.ProductViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/LayOutPage/_LayoutMainPage.cshtml";
+}
+<style>
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 120px 20px 40px;
+    }
+    .container h2{
+        text-align: center;
+    }
+
+</style>
+<div class="container">
+    <h2>Tất cả sản phẩm</h2>
+
+    <p>Số sản phẩm: @Model.Products.Count</p>
+
+    <p>Số danh mục: @Model.Categories.Count</p>
+    <div class="product-list">
+        @foreach (var product in Model.Products)
+        {
+            @Html.Partial("~/Views/LayOutPage/_ProductCard.cshtml", product)
+        }
+    </div>
+    </div>
