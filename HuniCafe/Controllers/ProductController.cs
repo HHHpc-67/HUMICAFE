@@ -10,6 +10,7 @@ namespace HuniCafe.Controllers
 {
     public class ProductController : Controller
     {
+        //khoi tao
         private readonly HuniCafeDB db = new HuniCafeDB();
         // HIển thị danh sách sản phẩm, có thể lọc theo categoryId nếu được truyền vào
         public ActionResult Index(int? categoryId)
@@ -34,6 +35,15 @@ namespace HuniCafe.Controllers
         ///
 
 
+        public ActionResult Product_Admin()
+        {
+            return View(db.Products.ToList());
+        }
 
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
     }
 }

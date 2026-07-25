@@ -267,6 +267,8 @@
     <Content Include="Views\Users\Login.cshtml" />
     <Content Include="Views\LayOutPage\_ProductCard.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\Product_Admin.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

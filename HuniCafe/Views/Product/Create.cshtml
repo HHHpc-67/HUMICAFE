@@ -1,0 +1,23 @@
+﻿@model HuniCafe.Models.Product
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/LayOutPage/_AdminPage.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<table>
+    <tr>
+        <th>@Html.LabelFor(model => model.ProductName)</th>
+        <td>@Html.EditorFor(model => model.ProductName)</td>
+    </tr>
+    <tr>
+        <th>@Html.LabelFor(model => model.ProductID)</th>
+        <td>@Html.EditorFor(model => model.ProductID)</td>
+    </tr>
+</table>
+}
