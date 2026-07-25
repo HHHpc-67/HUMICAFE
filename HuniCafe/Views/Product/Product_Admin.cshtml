@@ -4,13 +4,13 @@
     ViewBag.Title = "Quản Lý Sản phẩm";
     Layout = "~/Views/LayOutPage/_AdminPage.cshtml";
 }
-
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
 <h2>Product</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create","", new { @class = "btn btn-success" })
 </p>
-<table class="table">
+<table class="table" style="width: 100%;">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.ProductName)
@@ -42,15 +42,21 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Image)
+            <a href="@item.Image" target="_blank" class="btn btn-sm btn-outline-primary">
+                Xem ảnh
+            </a>
         </td>
+        @*hoặc 
+        <td>
+            <img src="@item.Image" alt="@item.ProductName" style="max-width: 80px; max-height: 80px; object-fit: cover; border-radius: 4px;" />
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.CategoryID)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }, new { @class = "btn btn-warning" }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ProductID }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }
