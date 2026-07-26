@@ -26,7 +26,7 @@ ul {
 
 
 .navbar {
-    width: 100%;
+    width: 100%; 
     height: 80px;
     display: flex;
     justify-content: space-between;
@@ -94,7 +94,7 @@ ul {
 
 .container {
     max-width: 1200px; 
-    margin: 0 auto; 
+    margin: 0 auto; /*có thể co giản dù màn hình rộng hơn*/
     padding: 100px 20px 40px;
 }
 
