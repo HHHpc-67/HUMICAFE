@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HuniCafe.Models.ViewModel;
+using System.Data.Entity;
 
 namespace HuniCafe.Controllers
 {
@@ -33,17 +34,32 @@ namespace HuniCafe.Controllers
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////// Admin làm phía dưới này 
         ///
-
+        
 
         public ActionResult Product_Admin()
         {
             return View(db.Products.ToList());
         }
 
+
+        /////////////////////////////////CREATE///////////////////
         [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Product dept)
+        {
+            if(ModelState.IsValid)
+            {
+                db.Products.Add(dept);
+                db.SaveChanges();
+                return RedirectToAction("Product_Admin");
+            }
+            return View(dept);
+        }
+        ///////////////////////////////////////////////////////////
     }
 }

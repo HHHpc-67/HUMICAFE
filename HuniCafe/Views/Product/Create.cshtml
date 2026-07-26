@@ -1,16 +1,16 @@
 ﻿@model HuniCafe.Models.Product
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Tạo sản phẩm";
     Layout = "~/Views/LayOutPage/_AdminPage.cshtml";
 }
-
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
 <h2>Create</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-<table>
+<table class="table">
     <tr>
         <th>@Html.LabelFor(model => model.ProductName)</th>
         <td>@Html.EditorFor(model => model.ProductName)</td>
@@ -30,6 +30,12 @@
     <tr>
         <th>@Html.LabelFor(model => model.CategoryID)</th>
         <td>@Html.EditorFor(model => model.CategoryID)</td>
+    </tr>
+
+    <tr>
+        <td >
+            <input type="submit" value="Create" class="btn btn-success" />
+        </td>
     </tr>
 </table>
 }
