@@ -1,0 +1,70 @@
+﻿@model HuniCafe.Models.Users
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng ký - HuniCafe</title>
+    <link href="~/Content/Login_Register/RegisterStyle.css" rel="stylesheet" />
+    <script src="~/Scripts/Login_JS/Register_Page.js"></script>
+</head>
+<body class="register-body">
+
+    <div class="register-card">
+        <h2>Register Account HuniCafe</h2>
+
+        <!-- Khung lỗi từ Server (C#) -->
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert-danger">
+                @ViewBag.Error
+            </div>
+        }
+
+        <!-- Khung lỗi từ Client (JS) -->
+        <div id="js-error" class="alert-danger" style="display: none;"></div>
+
+        @using (Html.BeginForm("Register", "Users", FormMethod.Post, new { id = "registerForm" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label>Họ và tên</label>
+                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", @placeholder = "Nhập họ và tên", @required = "required" })
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                @Html.TextBoxFor(m => m.Email, new { @type = "email", @class = "form-control", @placeholder = "Nhập địa chỉ email", @required = "required" })
+            </div>
+
+            <div class="form-group">
+                <label>Tên đăng nhập</label>
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @placeholder = "Nhập tên đăng nhập", @required = "required" })
+            </div>
+
+            <div class="form-group">
+                <label>Mật khẩu</label>
+                @Html.PasswordFor(m => m.Password, new { id = "txtPassword", @class = "form-control", @placeholder = "Nhập mật khẩu", @required = "required" })
+            </div>
+
+            <div class="form-group">
+                <label>Xác nhận mật khẩu</label>
+                <input type="password" id="txtConfirmPassword" name="confirmPassword" class="form-control" placeholder="Nhập lại mật khẩu" required />
+            </div>
+
+            <button type="submit" class="btn-register">Đăng ký</button>
+
+            <div style="margin-top: 15px; text-align: center;">
+                <a href="@Url.Action("Login", "Users")" style="color: #666; text-decoration: none; font-size: 14px;">Đã có tài khoản? Đăng nhập ngay</a>
+            </div>
+        }
+    </div>
+
+</body>
+</html>

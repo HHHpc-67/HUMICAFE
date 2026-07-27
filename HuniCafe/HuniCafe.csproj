@@ -224,6 +224,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Login_Register\RegisterStyle.css" />
     <Content Include="Content\Style_Cafe\cart.css" />
     <Content Include="Content\Style_Cafe\Banner.css" />
     <Content Include="Content\Style_Cafe\layout.css" />
@@ -249,6 +250,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Login_JS\Login_Page.js" />
+    <Content Include="Scripts\Login_JS\Register_Page.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -269,6 +271,7 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Product_Admin.cshtml" />
     <Content Include="Views\Product\Create.cshtml" />
+    <Content Include="Views\Users\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

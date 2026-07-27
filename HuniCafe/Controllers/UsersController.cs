@@ -66,7 +66,7 @@ namespace HuniCafe.Controllers
                 return RedirectToAction("Login", "Users");
             }
 
-            return View(); 
+            return View();
         }
 
         // GET: Users/Logout
@@ -83,6 +83,62 @@ namespace HuniCafe.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // GET: Users/Register
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        // POST: Users/Register
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(Users model, string confirmPassword)
+        {
+            // Loại bỏ kiểm tra Validation các trường không có trên Form
+            ModelState.Remove("UserID");
+            ModelState.Remove("Role");
+
+            if (ModelState.IsValid)
+            {
+                // Kiểm tra xem Username hoặc Email đã tồn tại trong DB chưa
+                var checkUser = db.Users.FirstOrDefault(u => u.Username == model.Username || u.Email == model.Email);
+
+                if (checkUser != null)
+                {
+                    if (checkUser.Username == model.Username)
+                    {
+                        ViewBag.Error = "Tên đăng nhập này đã được sử dụng!";
+                    }
+                    else
+                    {
+                        ViewBag.Error = "Email này đã được sử dụng!";
+                    }
+                    return View(model);
+                }
+
+                // Kiểm tra khớp mật khẩu
+                if (model.Password != confirmPassword)
+                {
+                    ViewBag.Error = "Mật khẩu xác nhận không trùng khớp!";
+                    return View(model);
+                }
+
+                // Gán Role mặc định
+                model.Role = "Customer";
+
+                // Lưu vào Database
+                db.Users.Add(model);
+                db.SaveChanges();
+
+                // Chuyển hướng sang trang Login
+                return RedirectToAction("Login", "Users");
+            }
+
+            ViewBag.Error = "Vui lòng kiểm tra lại thông tin nhập!";
+            return View(model);
         }
     }
 }
