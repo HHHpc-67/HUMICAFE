@@ -17,16 +17,6 @@
 
     <div class="register-card">
         <h2>Register Account HuniCafe</h2>
-
-        <!-- Khung lỗi từ Server (C#) -->
-        @if (ViewBag.Error != null)
-        {
-            <div class="alert-danger">
-                @ViewBag.Error
-            </div>
-        }
-
-        <!-- Khung lỗi từ Client (JS) -->
         <div id="js-error" class="alert-danger" style="display: none;"></div>
 
         @using (Html.BeginForm("Register", "Users", FormMethod.Post, new { id = "registerForm" }))

@@ -23,12 +23,14 @@
 .product-card {
     background: #fff;
     border-radius: 15px;
-   
     box-shadow: 0 5px 15px rgba(0,0,0,.1);
     transition: .3s;
+    position: relative;
+    z-index: 1;
 }
     .product-card:hover {
-        transform: translateY(-8px);
+        z-index: 10;
+        transform: translateY(-5px);
         box-shadow: 0 12px 25px rgba(0,0,0,.2);
     }
 

@@ -1,34 +1,42 @@
 ﻿
 .huni-hero {
     width: 100%;
-    height: 250px;
-    background: #ebdccb;
+    height: 350px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/Content/Images/BackGroundCafe.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 20px;
-    margin-top: 120px;
+    margin-top: 80px;
 }
 
 
 .hero-content h1 {
-    color: #142F55; 
+    color: #ffffff;
     font-size: 32px;
     font-weight: 800;
     margin-bottom: 10px;
 }
+    .hero-content h1 .text-huni {
+        color: #ebdccb; /* Màu kem nhạt ban đầu của bạn */
+    }
 
-
+    .hero-content h1 .text-cafe {
+        color: #A4724E; 
+    }
 .hero-content p {
-    color: #555555;
+    color: #f0f0f0;
     font-size: 18px;
     margin-bottom: 25px;
     font-weight: 500;
 }
 
 
-/* ================= NÚT ĐẶT HÀNG ================= */
+/* Nút Đặt Hàng */
 .btn-huni-order {
     display: inline-block;
     border-radius: 8px;
@@ -50,7 +58,7 @@
     }
 
 
-/* ================= (CATEGORIES) ================= */
+/* Category */
 .huni-cate {
     margin-top: 50px;
     text-align: center;
