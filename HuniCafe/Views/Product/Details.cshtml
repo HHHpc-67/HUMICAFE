@@ -1,0 +1,54 @@
+﻿@model HuniCafe.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/LayOutPage/_AdminPage.cshtml";
+}
+<link href="~/Content/Admin/DetailProduct.css" rel="stylesheet" />
+<div class="admin-details-container">
+    <h2 class="admin-page-title">CHI TIẾT SẢN PHẨM</h2>
+
+    <div class="details-card">
+        <div class="details-row">
+            <span class="details-label">Tên sản phẩm:</span>
+            <span class="details-value font-bold">@Html.DisplayFor(model => model.ProductName)</span>
+        </div>
+
+        <div class="details-row">
+            <span class="details-label">Mô tả:</span>
+            <span class="details-value">@Html.DisplayFor(model => model.Description)</span>
+        </div>
+
+        <div class="details-row">
+            <span class="details-label">Đơn giá:</span>
+            <span class="details-value">@(Model.Price.ToString("N0") + " VNĐ")</span>
+        </div>
+
+        <div class="details-row">
+            <span class="details-label">Loại sản phẩm:</span>
+            <span class="details-value">
+                @(Model.Category != null ? Model.Category.CategoryName : "Chưa phân loại") (ID: @Model.CategoryID)
+            </span>
+        </div>
+
+        <div class="details-row">
+            <span class="details-label">Hình ảnh:</span>
+            <div class="details-value">
+                @if (!string.IsNullOrEmpty(Model.Image))
+                {
+                    <img src="@Model.Image" alt="@Model.ProductName" class="details-img" />
+                }
+                else
+                {
+                    <span class="no-img">Chưa có ảnh</span>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="actions-group">
+        @Html.ActionLink("Cập nhật", "Edit", new { id = Model.ProductID }, new { @class = "btn-edit" })
+        @Html.ActionLink("Quay lại", "Product_Admin", null, new { @class = "btn-back" })
+    </div>
+</div>
+

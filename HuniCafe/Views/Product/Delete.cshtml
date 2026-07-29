@@ -1,0 +1,60 @@
+﻿@model HuniCafe.Models.Product
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/LayOutPage/_AdminPage.cshtml";
+}
+<link href="~/Content/Admin/DeleteProduct.css" rel="stylesheet" />
+<div class="admin-delete-container">
+    <h2 class="admin-page-title text-danger">XÓA SẢN PHẨM</h2>
+
+    <div class="alert-warning">
+        <strong>Bạn có chắc chắn muốn xóa sản phẩm này không?</strong> Hành động này không thể hoàn tác.
+    </div>
+
+    <div class="delete-card">
+        <div class="delete-row">
+            <span class="delete-label">Tên sản phẩm:</span>
+            <span class="delete-value font-bold">@Html.DisplayFor(model => model.ProductName)</span>
+        </div>
+
+        <div class="delete-row">
+            <span class="delete-label">Mô tả:</span>
+            <span class="delete-value">@Html.DisplayFor(model => model.Description)</span>
+        </div>
+
+        <div class="delete-row">
+            <span class="delete-label">Đơn giá:</span>
+            <span class="delete-value">@(Model.Price.ToString("N0") + " VNĐ")</span>
+        </div>
+
+        <div class="delete-row">
+            <span class="delete-label">Loại sản phẩm:</span>
+            <span class="delete-value">
+                @(Model.Category != null ? Model.Category.CategoryName : "Chưa phân loại") (ID: @Model.CategoryID)
+            </span>
+        </div>
+
+        <div class="delete-row">
+            <span class="delete-label">Hình ảnh:</span>
+            <div class="delete-value">
+                @if (!string.IsNullOrEmpty(Model.Image))
+                {
+                    <img src="@Model.Image" alt="@Model.ProductName" class="delete-img" />
+                }
+            </div>
+        </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ProductID)
+
+        <div class="actions-group">
+            <input type="submit" value="Xác nhận xóa" class="btn-delete-confirm" />
+            @Html.ActionLink("Hủy bỏ", "Product_Admin", null, new { @class = "btn-back" })
+        </div>
+    }
+</div>
+

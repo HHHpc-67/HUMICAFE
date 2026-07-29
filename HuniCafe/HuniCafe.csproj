@@ -206,6 +206,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Admin\AdminStyle.css" />
+    <Content Include="Content\Admin\CreateProduct.css" />
+    <Content Include="Content\Admin\DeleteProduct.css" />
+    <Content Include="Content\Admin\DetailProduct.css" />
+    <Content Include="Content\Admin\EditProduct.css" />
+    <Content Include="Content\Admin\ProductCategory.css" />
     <Content Include="Content\Images\BackGroundCafe.png" />
     <Content Include="Content\Images\Users_profile.png" />
     <Content Include="Content\Login_Register\LoginStyle.css" />
@@ -273,6 +278,9 @@
     <Content Include="Views\Product\Product_Admin.cshtml" />
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Users\Register.cshtml" />
+    <Content Include="Views\Product\Details.cshtml" />
+    <Content Include="Views\Product\Delete.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,21 +6,22 @@ using System.Web;
 using System.Web.Mvc;
 using HuniCafe.Models.ViewModel;
 using System.Data.Entity;
+using System.Net;
 
 namespace HuniCafe.Controllers
 {
     public class ProductController : Controller
     {
-        //khoi tao
         private readonly HuniCafeDB db = new HuniCafeDB();
-        // HIển thị danh sách sản phẩm, có thể lọc theo categoryId nếu được truyền vào
+
+        //MainPage - Product List
         public ActionResult Index(int? categoryId)
         {
-            var products = db.Products.AsQueryable(); // Lấy tất cả sản phẩm từ cơ sở dữ liệu
+            var products = db.Products.AsQueryable();
 
-            if (categoryId.HasValue) // Nếu có categoryId được truyền vào, lọc sản phẩm theo categoryId
+            if (categoryId.HasValue)
             {
-                products = products.Where(p => p.CategoryID == categoryId.Value); // Lọc sản phẩm theo categoryId
+                products = products.Where(p => p.CategoryID == categoryId.Value);
             }
 
             var model = new ProductViewModel
@@ -32,34 +33,127 @@ namespace HuniCafe.Controllers
 
             return View(model);
         }
-        ///////////////////////////////////////////////////////////////////////////////////////////////// Admin làm phía dưới này 
-        ///
-        
 
+        // ADMIN - Product List Page
         public ActionResult Product_Admin()
         {
-            return View(db.Products.ToList());
+            var products = db.Products.Include(p => p.Category);
+            return View(products.ToList());
         }
 
-
-        /////////////////////////////////CREATE///////////////////
+        // CREATE
         [HttpGet]
         public ActionResult Create()
         {
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Product dept)
+        public ActionResult Create(Product dept, HttpPostedFileBase ImageFile)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 db.Products.Add(dept);
                 db.SaveChanges();
                 return RedirectToAction("Product_Admin");
             }
+
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", dept.CategoryID);
             return View(dept);
         }
-        ///////////////////////////////////////////////////////////
+
+        // DETAILS
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Product product = db.Products.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(product);
+        }
+
+        // EDIT
+        [HttpGet]
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Product product = db.Products.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
+            return View(product);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Product product, HttpPostedFileBase ImageFile)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(product).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Product_Admin");
+            }
+
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
+            return View(product);
+        }
+
+        // DELETE
+        [HttpGet]
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Product product = db.Products.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(product);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Product product = db.Products.Find(id);
+            if (product != null)
+            {
+                db.Products.Remove(product);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Product_Admin");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

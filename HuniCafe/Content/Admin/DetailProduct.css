@@ -1,0 +1,79 @@
+﻿.admin-details-container {
+    padding: 25px;
+    max-width: 800px;
+}
+
+.admin-page-title {
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.details-card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.details-row {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: flex-start;
+}
+
+.details-label {
+    width: 160px;
+    font-weight: 700;
+    color: #555;
+}
+
+.details-value {
+    flex: 1;
+    color: #222;
+}
+
+.font-bold {
+    font-weight: 600;
+}
+
+.details-img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.no-img {
+    color: #888;
+    font-style: italic;
+}
+
+.actions-group {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-edit {
+    display: inline-block;
+    background-color: #5bc0de;
+    color: #fff !important;
+    padding: 8px 18px;
+    border-radius: 5px;
+    text-decoration: none !important;
+    font-weight: 600;
+}
+
+.btn-back {
+    display: inline-block;
+    background-color: #6c757d;
+    color: #fff !important;
+    padding: 8px 18px;
+    border-radius: 5px;
+    text-decoration: none !important;
+    font-weight: 600;
+}
