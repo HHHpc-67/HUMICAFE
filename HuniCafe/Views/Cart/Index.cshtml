@@ -1,0 +1,144 @@
+﻿@model List<HuniCafe.Models.Cart>
+
+@{
+    ViewBag.Title = "Shopping Cart";
+    Layout = "~/Views/LayOutPage/_LayoutMainPage.cshtml";
+}
+
+<div class="container">
+
+    <div class="cart-header">
+        <h2>Shopping Cart</h2>
+
+        <p>
+            @Model.Sum(x => x.Quantity) sản phẩm
+        </p>
+    </div>
+
+
+    @if (Model.Count == 0)
+    {
+        <div class="empty-cart">
+
+            <h3>Giỏ hàng đang trống</h3>
+
+            <p>Hãy chọn những sản phẩm yêu thích của bạn.</p>
+
+            <a href="@Url.Action("Index", "Product")"
+               class="continue-shopping">
+                Tiếp tục mua hàng
+            </a>
+
+        </div>
+    }
+    else
+    {
+        <div class="cart-content">
+
+            <div class="cart-items">
+
+                @foreach (var item in Model)
+                {
+                    <div class="cart-item">
+
+                        <div class="cart-product">
+
+                            <img src="@item.Image"
+                                 alt="@item.ProductName" />
+
+                            <div>
+                                <h3>@item.ProductName</h3>
+
+                                <p>
+                                    @String.Format("{0:N0} VNĐ", item.Price)
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="cart-quantity">
+
+                            <a href="@Url.Action("Decrease", "Cart", new { id = item.ProductID })"
+                               class="quantity-btn">
+                                -
+                            </a>
+
+                            <span>@item.Quantity</span>
+
+                            <a href="@Url.Action("Increase", "Cart", new { id = item.ProductID })"
+                               class="quantity-btn">
+                                +
+                            </a>
+
+
+                        </div>
+
+
+                        <div class="cart-total">
+
+                            <strong>
+                                @String.Format("{0:N0} VNĐ", item.Total)
+                            </strong>
+
+                        </div>
+
+
+                        <div class="cart-remove">
+
+                            <a href="@Url.Action("Remove","Cart", new {id = item.ProductID})" class="remove-btn">
+                                x
+                            </a>
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+
+            <div class="cart-summary">
+
+                <h3>Order Summary</h3>
+
+                <div class="summary-row">
+
+                    <span>Tạm tính</span>
+
+                    <strong>
+                        @String.Format("{0:N0} VNĐ", Model.Sum(x => x.Total))
+                    </strong>
+
+                </div>
+
+                <div class="summary-row">
+
+                    <span>Phí giao hàng</span>
+
+                    <strong>0 VNĐ</strong>
+
+                </div>
+
+                <hr />
+
+                <div class="summary-total">
+
+                    <span>Tổng cộng</span>
+
+                    <strong>
+                        @String.Format("{0:N0} VNĐ", Model.Sum(x => x.Total))
+                    </strong>
+
+                </div>
+
+                <button class="checkout-btn">
+                    Đặt hàng
+                </button>
+
+            </div>
+
+        </div>
+    }
+
+</div>
