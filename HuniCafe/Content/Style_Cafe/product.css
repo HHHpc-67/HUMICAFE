@@ -44,7 +44,7 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background-color: #fafafa; /* (Tùy chọn) Màu nền nhẹ giúp khung đồng nhất nếu ảnh PNG trong suốt */
+    background-color: #fafafa;
     border-radius: 8px 8px 0 0;
 }
 
@@ -53,8 +53,8 @@
         max-height: 100%;
         width: auto;
         height: auto;
-        object-fit: contain; /* Giữ nguyên tỉ lệ ảnh, thu phóng vừa vặn khung mà không bị méo */
-        padding: 12px; /* Tạo khoảng trống xung quanh để ảnh không đụng mép khung */
+        object-fit: contain;
+        padding: 12px; 
         transition: transform .3s ease;
     }
 
