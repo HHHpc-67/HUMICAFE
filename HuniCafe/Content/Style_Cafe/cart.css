@@ -56,10 +56,13 @@
 /* CART CONTENT */
 
 .cart-content {
-    display: grid;
-    grid-template-columns: 1fr 380px; /* Tăng nhẹ độ rộng khung summary lên 380px cho thoải mái */
+
+
+    display: flex;
     gap: 30px;
-    align-items: start;
+    flex-direction: column;
+
+
 }
 
 
@@ -227,7 +230,13 @@
     border-top: 1px solid #eee; /* Thêm đường gạch ngang phân cách cho đẹp */
 }
 
-/* Nút đặt hàng chuẩn hóa */
+
+
+
+/*CHECK OUTTTTTTTT*/
+
+    
+
 .checkout-btn {
     width: 100%;
     margin-top: 25px;
@@ -240,22 +249,25 @@
     font-weight: 600;
     cursor: pointer;
     transition: .3s;
-    box-sizing: border-box; /* Giúp nút không bị tràn ra ngoài khung */
     display: block;
-    text-align: center;
+    text-align: center
 }
 
     .checkout-btn:hover {
         background: #7a5643;
+        color: white;
     }
 
-
-/* CHECKOUT PAGE (Dành riêng cho trang thanh toán) */
+.text-danger {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+}
 
 .checkout-container {
     display: flex;
     gap: 40px;
-    align-items: flex-start;
+    flex-direction:column;
 }
 
 .checkout-left {

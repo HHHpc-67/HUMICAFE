@@ -6,46 +6,51 @@
 }
 
 <div class="container">
-    <div class="checkout-container">
-        @using (Html.BeginForm("Checkout", "Cart", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
 
+    @using (Html.BeginForm("Checkout", "Cart", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="checkout-container">
             <div class="checkout-left">
 
                 <h2>Thông tin giao hàng</h2>
 
                 <div class="form-group">
                     <label>Họ và tên</label>
-                    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
                 </div>
 
                 <div class="form-group">
                     <label>Email</label>
                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                 </div>
 
                 <div class="form-group">
                     <label>Số điện thoại</label>
                     @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
                 </div>
 
                 <div class="form-group">
                     <label>Địa chỉ giao hàng</label>
                     @Html.TextAreaFor(m => m.Address, new
-                    {
-                        @class = "form-control",
-                        rows = "3"
-                    })
+               {
+                   @class = "form-control",
+                   rows = "3",
+
+               }) @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+
                 </div>
 
                 <div class="form-group">
                     <label>Ghi chú</label>
                     @Html.TextAreaFor(m => m.Note, new
-                    {
-                        @class = "form-control",
-                        rows = "3"
-                    })
+               {
+                   @class = "form-control",
+                   rows = "3"
+               })
                 </div>
 
             </div>
@@ -55,7 +60,6 @@
                 <h2>Đơn hàng của bạn</h2>
 
                 <table class="table">
-
                     <tr>
                         <th>Sản phẩm</th>
                         <th>SL</th>
@@ -65,16 +69,11 @@
                     @foreach (var item in Model.Cart)
                     {
                         <tr>
-
                             <td>@item.ProductName</td>
-
                             <td>@item.Quantity</td>
-
                             <td>@String.Format("{0:N0} VNĐ", item.Total)</td>
-
                         </tr>
                     }
-
                 </table>
 
                 <h3>
@@ -87,6 +86,7 @@
                 </button>
 
             </div>
-        }
-    </div>
+
+        </div>
+    }
 </div>

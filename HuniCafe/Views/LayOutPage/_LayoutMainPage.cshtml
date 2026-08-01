@@ -5,10 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title - HuniCafe</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" /> 
     <link href="~/Content/Style_Cafe/layout.css" rel="stylesheet" />
     <link href="~/Content/Style_Cafe/Banner.css" rel="stylesheet" />
     <link href="~/Content/Style_Cafe/product.css" rel="stylesheet" />
     <link href="~/Content/Style_Cafe/cart.css" rel="stylesheet" />
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,7 +55,7 @@
                 {
                     <div class="user-profile-box">
                         <!-- Click vào Ảnh Profile sẽ nhảy đến Trang Cá Nhân -->
-                        <a href="@Url.Action("CustomerProfile", "Customer")" title="Xem trang cá nhân">
+                        <a href="@Url.Action("CustomerProfile", "Customer")" title="Trang cá nhân">
                             <img src="~/Content/Images/Users_profile.png" alt="Profile Picture" class="user-avatar-img" />
                         </a>
 
