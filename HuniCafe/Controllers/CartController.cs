@@ -135,7 +135,7 @@ namespace HuniCafe.Controllers
         }
 
 
-
+        
         //public ActionResult Checkout()
         //{
         //    // Kiểm tra đăng nhập
@@ -200,6 +200,17 @@ namespace HuniCafe.Controllers
             if (cart == null || !cart.Any())
             {
                 return RedirectToAction("Index");
+            }
+
+
+            // validation Gán lại dữ liệu cho ViewModel khi trả về View
+            model.Cart = cart;
+            model.TotalAmount = cart.Sum(x => x.Total);
+
+            // validation  Nếu dữ liệu không hợp lệ thì quay lại Checkout
+            if (!ModelState.IsValid)
+            {
+                return View(model);
             }
 
             int userId = (int)Session["UserID"];

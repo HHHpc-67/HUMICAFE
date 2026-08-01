@@ -27,9 +27,12 @@
         <div class="huni-category-list">
             @foreach (var item in Model.Categories)
             {
-                <div class="huni-category-card">
+                <a href="@Url.Action("Index", "Product", new { categoryId = item.CategoryID })"
+                   class="huni-category-card">
+
                     <h3>@item.CategoryName</h3>
-                </div>
+
+                </a>
             }
             @*<div class="huni-category-card">
             <h3>Coffee</h3>
