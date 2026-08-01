@@ -26,12 +26,8 @@
                 <li><a href="@Url.Action("MainPage", "Home")">Home</a></li>
                 <li><a href="@Url.Action("Index", "Product")">Menu</a></li>
 
-
-
-
                 @{
                     var cart = Session["Cart"] as List<Cart>;
-
                     int cartCount = 0;
 
                     if (cart != null)
@@ -39,33 +35,36 @@
                         cartCount = cart.Sum(x => x.Quantity);
                     }
                 }
-                <li><a href="@Url.Action("Index", "Cart")">
-                       Giỏ Hàng
-                   @if (cartCount > 0)
-                {
-                  <span class="cart-badge">@cartCount</span>
-                }
-            </a>
+                <li>
+                    <a href="@Url.Action("Index", "Cart")">
+                        Giỏ Hàng
+                        @if (cartCount > 0)
+                        {
+                            <span class="cart-badge">@cartCount</span>
+                        }
+                    </a>
                 </li>
-
-
-
-
 
                 <li><a href="@Url.Action("MyOrders", "Order")">Đơn Hàng</a></li>
             </ul>
+
             <div class="account">
                 @if (Session["UserID"] != null)
                 {
                     <div class="user-profile-box">
-                        <!-- Ảnh Profile -->
-                        <img src="~/Content/Images/Users_profile.png" alt="Profile Picture" class="user-avatar-img" />
+                        <!-- Click vào Ảnh Profile sẽ nhảy đến Trang Cá Nhân -->
+                        <a href="@Url.Action("CustomerProfile", "Customer")" title="Xem trang cá nhân">
+                            <img src="~/Content/Images/Users_profile.png" alt="Profile Picture" class="user-avatar-img" />
+                        </a>
+
                         <div class="user-info-text">
                             <span class="user-greeting">
-                                <!-- Icon Profile SVG -->
                                 <svg class="small-profile-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
                                 </svg>
-                                Xin chào, <strong>@(Session["FullName"] ?? "Khách")</strong>
+                                <!-- Click vào Tên cũng nhảy đến Trang Cá Nhân -->
+                                <a href="@Url.Action("CustomerProfile", "Customer")" style="text-decoration: none; color: inherit;">
+                                    Xin chào, <strong>@(Session["FullName"] ?? "Khách")</strong>
+                                </a>
 
                                 @if (Session["Role"]?.ToString() == "Admin")
                                 {

@@ -1,0 +1,103 @@
+﻿
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+main {
+    flex: 1;
+}
+.account-container {
+    max-width: 1000px;
+    margin: 120px auto 60px auto !important;
+    padding: 0 20px;
+    display: flex;
+    gap: 60px;
+    min-height: calc(100vh - 260px) !important;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Left: Sidebar Menu */
+.account-sidebar {
+    width: 260px;
+    border-right: 1px solid #eaeaea;
+    padding-right: 30px;
+}
+
+.sidebar-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #3e2723;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.welcome-text {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.user-name {
+    color: #A4724E;
+    font-weight: 700;
+}
+
+.account-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .account-menu li {
+        margin-bottom: 16px;
+    }
+
+    .account-menu a {
+        text-decoration: none;
+        color: #555;
+        font-size: 15px;
+        transition: all 0.2s ease;
+    }
+
+        .account-menu li.active a,
+        .account-menu a:hover {
+            color: #A4724E;
+            font-weight: 700;
+        }
+
+/* Rightside bar: Content */
+.account-content {
+    flex: 1;
+    padding-left: 10px;
+}
+
+.content-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #3e2723; 
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+.info-label {
+    width: 140px;
+    font-weight: 700;
+    color: #333;
+}
+
+.info-value {
+    color: #555;
+}
