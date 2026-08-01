@@ -63,13 +63,31 @@ ul {
     .nav-links a {
         color: white;
         font-weight: 500;
-        display: inline-block; 
+        display: inline-block;
+        position: relative; /*sẽ làm 1 phần tử cha để các thẻ có absolute làm con*/
     }
 
         .nav-links a:hover {
             color: #A4724E; 
             transform: translateY(-3px);
         }
+
+
+.cart-badge {
+    position: absolute; /*làm con của thằng a*/
+    top: -8px;
+    right: -15px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #dc3545;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: bold;
+}
 
 /* Account */
 .account {
@@ -109,6 +127,9 @@ footer {
     font-weight: 500;
     letter-spacing: 1px;
 }
+
+
+
 
 
 /* media */

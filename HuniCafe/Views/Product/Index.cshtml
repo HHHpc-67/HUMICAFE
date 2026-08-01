@@ -7,14 +7,42 @@
 
 <div class="container">
 
-    <h2>Tất cả sản phẩm</h2>
+    <section class="product-page">
 
-     
+        <div class="product-header">
+            <h1>Our Menu</h1>
+            <p>Choose your favorite drink</p>
+        </div>
+
+        <div class="category-filter">
+
+            <a href="@Url.Action("Index", "Product")"
+               class="category-filter-btn @(Model.SelectedCategory == null ? "active" : "")">
+                Tất cả
+            </a>
+
+            @foreach (var category in Model.Categories)
+            {
+                <a href="@Url.Action("Index", "Product", new { categoryId = category.CategoryID })"
+                   class="category-filter-btn @(Model.SelectedCategory == category.CategoryID ? "active" : "")">
+
+                    @category.CategoryName
+
+                </a>
+            }
+
+        </div>
+
+
         <div class="product-list">
+
             @foreach (var product in Model.Products)
             {
                 @Html.Partial("~/Views/LayOutPage/_ProductCard.cshtml", product)
             }
+
         </div>
-  
+
+    </section>
+
 </div>

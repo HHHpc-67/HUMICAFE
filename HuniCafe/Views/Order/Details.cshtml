@@ -1,0 +1,68 @@
+﻿@model HuniCafe.Models.Order
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/LayOutPage/_LayoutMainPage.cshtml";
+}
+<div class="container">
+    <h2>Đơn hàng #@Model.OrderID</h2>
+
+    <p>
+        Ngày đặt:
+        @Model.OrderDate.ToString("dd/MM/yyyy HH:mm")
+    </p>
+
+    <p>
+        Trạng thái:
+        @Model.Status
+    </p>
+
+    <hr />
+
+    <table class="table">
+
+        <tr>
+
+            <th>Sản phẩm</th>
+
+            <th>Đơn giá</th>
+
+            <th>Số lượng</th>
+
+            <th>Thành tiền</th>
+
+        </tr>
+
+        @foreach (var item in Model.OrderDetails)
+        {
+            <tr>
+
+                <td>@item.Product.ProductName</td>
+
+                <td>
+                    @String.Format("{0:N0} VNĐ", item.Price)
+                </td>
+
+                <td>
+                    @item.Quantity
+                </td>
+
+                <td>
+
+                    @String.Format("{0:N0} VNĐ", item.Price * item.Quantity)
+
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+    <h3 style="text-align:right">
+
+        Tổng:
+
+        @String.Format("{0:N0} VNĐ", Model.TotalAmount)
+
+    </h3>
+
+</div>

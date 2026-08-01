@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+@using HuniCafe.Models
 <html>
 <head>
     <meta charset="utf-8" />
@@ -7,12 +8,14 @@
     <link href="~/Content/Style_Cafe/layout.css" rel="stylesheet" />
     <link href="~/Content/Style_Cafe/Banner.css" rel="stylesheet" />
     <link href="~/Content/Style_Cafe/product.css" rel="stylesheet" />
+    <link href="~/Content/Style_Cafe/cart.css" rel="stylesheet" />
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <header>
         <nav class="navbar">
             <div class="logo">
@@ -22,7 +25,33 @@
             <ul class="nav-links">
                 <li><a href="@Url.Action("MainPage", "Home")">Home</a></li>
                 <li><a href="@Url.Action("Index", "Product")">Menu</a></li>
-                <li><a href="@Url.Action("Index", "Cart")">Giỏ Hàng</a></li>
+
+
+
+
+                @{
+                    var cart = Session["Cart"] as List<Cart>;
+
+                    int cartCount = 0;
+
+                    if (cart != null)
+                    {
+                        cartCount = cart.Sum(x => x.Quantity);
+                    }
+                }
+                <li><a href="@Url.Action("Index", "Cart")">
+                       Giỏ Hàng
+                   @if (cartCount > 0)
+                {
+                  <span class="cart-badge">@cartCount</span>
+                }
+            </a>
+                </li>
+
+
+
+
+
                 <li><a href="@Url.Action("MyOrders", "Order")">Đơn Hàng</a></li>
             </ul>
             <div class="account">
