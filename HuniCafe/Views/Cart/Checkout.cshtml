@@ -1,0 +1,92 @@
+﻿@model HuniCafe.Models.ViewModel.CheckoutViewModel
+
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/LayOutPage/_LayoutMainPage.cshtml";
+}
+
+<div class="container">
+    <div class="checkout-container">
+        @using (Html.BeginForm("Checkout", "Cart", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="checkout-left">
+
+                <h2>Thông tin giao hàng</h2>
+
+                <div class="form-group">
+                    <label>Họ và tên</label>
+                    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+
+                <div class="form-group">
+                    <label>Số điện thoại</label>
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    <label>Địa chỉ giao hàng</label>
+                    @Html.TextAreaFor(m => m.Address, new
+                    {
+                        @class = "form-control",
+                        rows = "3"
+                    })
+                </div>
+
+                <div class="form-group">
+                    <label>Ghi chú</label>
+                    @Html.TextAreaFor(m => m.Note, new
+                    {
+                        @class = "form-control",
+                        rows = "3"
+                    })
+                </div>
+
+            </div>
+
+            <div class="checkout-right">
+
+                <h2>Đơn hàng của bạn</h2>
+
+                <table class="table">
+
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>SL</th>
+                        <th>Thành tiền</th>
+                    </tr>
+
+                    @foreach (var item in Model.Cart)
+                    {
+                        <tr>
+
+                            <td>@item.ProductName</td>
+
+                            <td>@item.Quantity</td>
+
+                            <td>@String.Format("{0:N0} VNĐ", item.Total)</td>
+
+                        </tr>
+                    }
+
+                </table>
+
+                <h3>
+                    Tổng tiền:
+                    @String.Format("{0:N0} VNĐ", Model.TotalAmount)
+                </h3>
+
+                <button type="submit" class="checkout-btn">
+                    Xác nhận đặt hàng
+                </button>
+
+            </div>
+        }
+    </div>
+</div>

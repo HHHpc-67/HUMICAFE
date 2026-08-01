@@ -176,6 +176,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -193,6 +194,14 @@
     <Compile Include="Migrations\202607230738572_MergeUser.Designer.cs">
       <DependentUpon>202607230738572_MergeUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202608010527195_AddPhoneAndAddressToUsers.cs" />
+    <Compile Include="Migrations\202608010527195_AddPhoneAndAddressToUsers.Designer.cs">
+      <DependentUpon>202608010527195_AddPhoneAndAddressToUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202608010559550_AddPhoneAndAddressToOder.cs" />
+    <Compile Include="Migrations\202608010559550_AddPhoneAndAddressToOder.Designer.cs">
+      <DependentUpon>202608010559550_AddPhoneAndAddressToOder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -200,8 +209,10 @@
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
+    <Compile Include="Models\OrderStatus.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Users.cs" />
+    <Compile Include="Models\ViewModel\CheckoutViewModel.cs" />
     <Compile Include="Models\ViewModel\HomeViewModel.cs" />
     <Compile Include="Models\ViewModel\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -284,6 +295,10 @@
     <Content Include="Views\Product\Delete.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\Checkout.cshtml" />
+    <Content Include="Views\Cart\Success.cshtml" />
+    <Content Include="Views\Order\MyOrders.cshtml" />
+    <Content Include="Views\Order\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -325,6 +340,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202607230738572_MergeUser.resx">
       <DependentUpon>202607230738572_MergeUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202608010527195_AddPhoneAndAddressToUsers.resx">
+      <DependentUpon>202608010527195_AddPhoneAndAddressToUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202608010559550_AddPhoneAndAddressToOder.resx">
+      <DependentUpon>202608010559550_AddPhoneAndAddressToOder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

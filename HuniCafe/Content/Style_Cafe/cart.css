@@ -237,18 +237,57 @@
 
 
 
-.cart-badge {
-    position: absolute;
-    top: -8px;
-    right: -15px;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: #dc3545;
-    color: white;
+.checkout-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-    font-weight: bold;
+    gap: 40px;
+    align-items: flex-start;
 }
+
+.checkout-left {
+    flex: 2;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+
+.checkout-right {
+    flex: 1;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: #6F4E37;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+    .checkout-btn:hover {
+        background: #5a3f2c;
+    }
