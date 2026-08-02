@@ -1,7 +1,7 @@
 ﻿body {
 }
 
-/* ================= PRODUCTS ================= */
+/* Products */
 .featured {
     margin-top: 50px;
     text-align: center;
@@ -16,7 +16,7 @@
 .product-list {
     margin-top: 40px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /** thay veif dùng media thì có thể dùng cái này*/
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
 }
 
@@ -25,8 +25,10 @@
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0,0,0,.1);
     transition: .3s;
+    position: relative;
     max-width: 300px;
     width: 100%;
+    margin: 0 auto;
     z-index: 1;
     margin: 0 auto;
 }
@@ -38,14 +40,23 @@
 
 .product-image {
     height: 220px;
-   
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #fafafa;
+    border-radius: 8px 8px 0 0;
 }
 
     .product-image img {
-        width: 100%;
-        height: 100%;      
-        transition: .3s;
-        border-radius:15px 
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        padding: 12px; 
+        transition: transform .3s ease;
     }
 
 .product-info {

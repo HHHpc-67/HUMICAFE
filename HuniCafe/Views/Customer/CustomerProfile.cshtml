@@ -1,0 +1,53 @@
+﻿@model HuniCafe.Models.Users
+
+@{
+    ViewBag.Title = "CustomerProfile";
+    Layout = "~/Views/LayOutPage/_LayoutMainPage.cshtml";
+}
+<link href="~/Content/Customer/Customer.css" rel="stylesheet" />
+<div class="account-container">
+    <div class="account-sidebar">
+        <h2 class="sidebar-title">TRANG TÀI KHOẢN</h2>
+        <p class="welcome-text">Xin chào, <span class="user-name">@(Model != null ? Model.FullName : "Khách hàng")</span>!</p>
+
+        <ul class="account-menu">
+            <li class="active">
+                <a href="@Url.Action("CustomerProfile", "Customer")">Thông tin tài khoản</a>
+            </li>
+            <li>
+                <a href="@Url.Action("MyOrders", "Customer")">Đơn hàng của bạn</a>
+            </li>
+            <li>
+                <a href="@Url.Action("ChangePassword", "Customer")">Đổi mật khẩu</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Logout", "Users")">Đăng xuất</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Cột phải: Nội dung thông tin -->
+    <div class="account-content">
+        <h2 class="content-title">THÔNG TIN TÀI KHOẢN</h2>
+
+        <div class="info-group">
+            <label class="info-label">Họ tên:</label>
+            <span class="info-value">@Model.FullName</span>
+        </div>
+
+        <div class="info-group">
+            <label class="info-label">Email:</label>
+            <span class="info-value">@Model.Email</span>
+        </div>
+
+        <div class="info-group">
+            <label class="info-label">Số điện thoại:</label>
+            <span class="info-value">@(string.IsNullOrEmpty(Model.Phone) ? "Chưa cập nhật" : Model.Phone)</span>
+        </div>
+
+        <div class="info-group">
+            <label class="info-label">Địa chỉ:</label>
+            <span class="info-value">@(string.IsNullOrEmpty(Model.Address) ? "Chưa cập nhật" : Model.Address)</span>
+        </div>
+    </div>
+</div>

@@ -35,6 +35,7 @@ namespace HuniCafe.Controllers
                     Session["UserID"] = user.UserID;
                     Session["FullName"] = user.FullName;
                     Session["Role"] = user.Role;
+                    Session["User"] = user; // BỔ SUNG DÒNG NÀY: Lưu nguyên đối tượng user vào Session
 
                     if (user.Role == "Admin")
                     {

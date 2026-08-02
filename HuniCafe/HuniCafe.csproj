@@ -175,6 +175,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -228,6 +229,7 @@
     <Content Include="Content\Admin\DetailProduct.css" />
     <Content Include="Content\Admin\EditProduct.css" />
     <Content Include="Content\Admin\ProductCategory.css" />
+    <Content Include="Content\Customer\Customer.css" />
     <Content Include="Content\Images\BackGroundCafe.png" />
     <Content Include="Content\Images\Users_profile.png" />
     <Content Include="Content\Login_Register\LoginStyle.css" />
@@ -303,10 +305,10 @@
     <Content Include="Views\Cart\Success.cshtml" />
     <Content Include="Views\Order\MyOrders.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
+    <Content Include="Views\Customer\CustomerProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Users\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
