@@ -18,6 +18,7 @@ namespace HuniCafe.Models
 
         public int Quantity { get; set; }
 
+        public string Image { get; set; }
         public decimal Price { get; set; }
 
         [ForeignKey("OrderID")]

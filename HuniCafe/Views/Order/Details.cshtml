@@ -24,6 +24,8 @@
 
             <th>Sản phẩm</th>
 
+            <th>Hình ảnh</th>
+
             <th>Đơn giá</th>
 
             <th>Số lượng</th>
@@ -37,6 +39,8 @@
             <tr>
 
                 <td>@item.Product.ProductName</td>
+
+                <td> <img src="@item.Product.Image" alt="@item.Product.ProductName" class="product-thumb" /></td>
 
                 <td>
                     @String.Format("{0:N0} VNĐ", item.Price)

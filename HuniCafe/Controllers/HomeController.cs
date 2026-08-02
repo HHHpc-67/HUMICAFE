@@ -16,10 +16,14 @@ namespace HuniCafe.Controllers
       
         public ActionResult MainPage()
         {
+            
+
+
             var model = new HomeViewModel
             {
                 Categories = db.Categories.ToList(),
-                Products = db.Products.ToList()
+                Products = db.Products.ToList(),
+                
             };
 
             return View(model);

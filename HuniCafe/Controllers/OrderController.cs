@@ -16,7 +16,7 @@ namespace HuniCafe.Controllers
         {
             if (Session["UserID"] == null)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "Users");
             }
 
             int userId = (int)Session["UserID"];
@@ -36,7 +36,7 @@ namespace HuniCafe.Controllers
         {
             if (Session["UserID"] == null)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "Users");
             }
 
             int userId = (int)Session["UserID"];

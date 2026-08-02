@@ -202,6 +202,10 @@
     <Compile Include="Migrations\202608010559550_AddPhoneAndAddressToOder.Designer.cs">
       <DependentUpon>202608010559550_AddPhoneAndAddressToOder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202608020342282_themimagechoorder.cs" />
+    <Compile Include="Migrations\202608020342282_themimagechoorder.Designer.cs">
+      <DependentUpon>202608020342282_themimagechoorder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -346,6 +350,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202608010559550_AddPhoneAndAddressToOder.resx">
       <DependentUpon>202608010559550_AddPhoneAndAddressToOder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202608020342282_themimagechoorder.resx">
+      <DependentUpon>202608020342282_themimagechoorder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
