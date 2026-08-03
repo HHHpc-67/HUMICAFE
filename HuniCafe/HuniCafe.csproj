@@ -254,6 +254,7 @@
     <Content Include="Content\Login_Register\RegisterStyle.css" />
     <Content Include="Content\Style_Cafe\cart.css" />
     <Content Include="Content\Style_Cafe\Banner.css" />
+    <Content Include="Content\Style_Cafe\DetailProduct.css" />
     <Content Include="Content\Style_Cafe\layout.css" />
     <Content Include="Content\Style_Cafe\order.css" />
     <Content Include="Content\Style_Cafe\product.css" />
@@ -312,6 +313,7 @@
     <Content Include="Views\Category\Create.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Category\Delete.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

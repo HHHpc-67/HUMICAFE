@@ -10,6 +10,7 @@
     <link href="~/Content/Style_Cafe/Banner.css" rel="stylesheet" />
     <link href="~/Content/Style_Cafe/product.css" rel="stylesheet" />
     <link href="~/Content/Style_Cafe/cart.css" rel="stylesheet" />
+    <link href="~/Content/Style_Cafe/DetailProduct.css" rel="stylesheet" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +28,7 @@
             <ul class="nav-links">
                 <li><a href="@Url.Action("MainPage", "Home")">Home</a></li>
                 <li><a href="@Url.Action("Index", "Product")">Menu</a></li>
-
+                <li><a href="@Url.Action("Coupon", "Home")">Ưu Đãi</a></li>
                 @{
                     var cart = Session["Cart"] as List<Cart>;
                     int cartCount = 0;
