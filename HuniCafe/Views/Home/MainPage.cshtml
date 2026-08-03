@@ -52,7 +52,7 @@
             <h2>Sản Phẩm Nổi Bật</h2>
             <div class="product-list">
 
-                @foreach (var product in Model.Products)
+                @foreach (var product in Model.FeaturedProducts)
                 {
                     @Html.Partial("~/Views/LayOutPage/_ProductCard.cshtml", product)
 

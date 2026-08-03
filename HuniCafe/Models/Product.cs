@@ -32,6 +32,8 @@ namespace HuniCafe.Models
         public int CategoryID { get; set; }
 
         [ForeignKey("CategoryID")]
-        public virtual Category Category { get; set; }
+        public virtual Category Category { get; set; }// khóa ngoại để liên kết với bảng Category
+
+
     }
 }

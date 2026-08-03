@@ -52,6 +52,11 @@
     text-decoration: none;
 }
 
+    .continue-shopping:hover {
+        color: white;
+        background: #142F55
+    }
+
 
 /* CART CONTENT */
 
@@ -302,4 +307,16 @@
     border: 1px solid #ddd;
     border-radius: 6px;
     box-sizing: border-box;
+}
+
+
+
+
+
+.product-thumb {
+    max-width: 80px;
+    max-height: 80px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
 }
