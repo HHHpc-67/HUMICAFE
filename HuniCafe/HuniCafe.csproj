@@ -175,6 +175,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -203,6 +204,10 @@
     <Compile Include="Migrations\202608010559550_AddPhoneAndAddressToOder.Designer.cs">
       <DependentUpon>202608010559550_AddPhoneAndAddressToOder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202608031403330_AddIsActiveToCategory.cs" />
+    <Compile Include="Migrations\202608031403330_AddIsActiveToCategory.Designer.cs">
+      <DependentUpon>202608031403330_AddIsActiveToCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -220,6 +225,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Admin\AdminStyle.css" />
+    <Content Include="Content\Admin\CategoryProduct.css" />
     <Content Include="Content\Admin\CreateProduct.css" />
     <Content Include="Content\Admin\DeleteProduct.css" />
     <Content Include="Content\Admin\DetailProduct.css" />
@@ -302,6 +308,10 @@
     <Content Include="Views\Order\MyOrders.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
     <Content Include="Views\Customer\CustomerProfile.cshtml" />
+    <Content Include="Views\Category\CategoryPage.cshtml" />
+    <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -348,6 +358,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202608010559550_AddPhoneAndAddressToOder.resx">
       <DependentUpon>202608010559550_AddPhoneAndAddressToOder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202608031403330_AddIsActiveToCategory.resx">
+      <DependentUpon>202608031403330_AddIsActiveToCategory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
