@@ -95,7 +95,7 @@ ul {
     font-weight: bold;
 }
 
-/* Account - Đã bổ sung align-items: center để đồng đều chiều dọc với Navbar */
+
 .account {
     display: flex;
     align-items: center;
@@ -115,7 +115,7 @@ ul {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 100px 20px 40px; /* Tăng padding-top lên 120px để không bị nav bar fixed che mất */
+    padding: 100px 20px 40px; 
 }
 
 /* Footer */

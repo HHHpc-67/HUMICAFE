@@ -19,7 +19,7 @@ namespace HuniCafe
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<HuniCafeDB, Migrations.Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<HuniCafeDB, Migrations.Configuration>()); //cái này sẽ tự chạy migra mỗi lần chạy
         }
     }
 }
