@@ -79,6 +79,10 @@ ul {
             transform: translateY(-3px);
         }
 
+        .nav-links a.active {
+            color: #A4724E;
+       
+        }
 .cart-badge {
     position: absolute;
     top: -8px;

@@ -215,7 +215,7 @@ namespace HuniCafe.Controllers
             model.Cart = cart;
             model.TotalAmount = cart.Sum(x => x.Total);
 
-            // validation  Nếu dữ liệu không hợp lệ thì quay lại Checkout
+            // validation  Nếu dữ liệu không hợp lệ thì quay lại Checkout và khong lưu vào db 
             if (!ModelState.IsValid)
             {
                 return View(model);
