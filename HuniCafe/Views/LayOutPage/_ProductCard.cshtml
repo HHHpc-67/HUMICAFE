@@ -1,25 +1,17 @@
 ﻿@model HuniCafe.Models.Product
 
-<div class="product-card">
+<a href="@Url.Action("Details", "Home", new { id = Model.ProductID })" class="product-card-link" style="text-decoration: none; color: inherit;">
+    <div class="product-card">
+        <div class="product-image">
+            <img src="@Model.Image" alt="@Model.ProductName" />
+        </div>
 
-    <div class="product-image">
-        <img src="@Model.Image" alt="@Model.ProductName" /> @*ko còn product. nữa vì là partial model rồi*@
+        <div class="product-info">
+            <h3>@Model.ProductName</h3>
+
+            <p class="price">
+                @String.Format("{0:N0} VNĐ", Model.Price)
+            </p>
+        </div>
     </div>
-
-    <div class="product-info">
-        <h3>@Model.ProductName</h3>
-
-        <p class="price">
-            @String.Format("{0:N0} VNĐ", Model.Price)
-        </p>
-
-        <a href="@Url.Action("Details", "Product", new { id = Model.ProductID })"
-           class="detail-btn">
-            Chi tiết
-        </a>
-        <a href="@Url.Action("AddToCart", "Cart", new { id = Model.ProductID })"
-           class="cart-btn">
-            Thêm vào giỏ
-        </a>
-    </div>
-</div>
+</a>

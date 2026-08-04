@@ -12,23 +12,28 @@ namespace HuniCafe.Models
         [Key]
         public int ProductID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Tên sản phẩm không được để trống")]
         [StringLength(200)]
+        [Display(Name = "Tên sản phẩm")]
         public string ProductName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Giá sản phẩm không được để trống")]
+        [Display(Name = "Giá bán")]
         public decimal Price { get; set; }
 
         [DataType(DataType.MultilineText)]
+        [Display(Name = "Mô tả sản phẩm")]
         public string Description { get; set; }
 
-        public string ImagePublicId { get; set; }
+        [Display(Name = "Hình ảnh")]
         public string Image { get; set; }
+        public string ImagePublicId { get; set; }
 
-        public int Stock { get; set; }      // Số lượng còn lại
-        public bool IsAvailable { get; set; } // Có đang bán không
+        [Display(Name = "Đã xóa")]
+        public bool IsDeleted { get; set; } = false;
 
-        // Foreign Key
+        // Foreign Key & Navigation Property
+        [Display(Name = "Danh mục")]
         public int CategoryID { get; set; }
 
         [ForeignKey("CategoryID")]

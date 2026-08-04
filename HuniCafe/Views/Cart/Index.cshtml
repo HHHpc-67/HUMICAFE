@@ -1,4 +1,4 @@
-﻿@model List<HuniCafe.Models.Cart>
+﻿@model IEnumerable<HuniCafe.Models.Cart>
 
 @{
     ViewBag.Title = "Shopping Cart";
@@ -16,7 +16,7 @@
     </div>
 
 
-    @if (Model.Count == 0)
+    @if (Model.Count() == 0)
     {
         <div class="empty-cart">
 
@@ -33,9 +33,9 @@
     }
     else
     {
-        <div class="cart-content">
+        <div class="cart-content" style="display: flex; gap: 30px; align-items: flex-start;">
 
-            <div class="cart-items">
+            <div class="cart-items" style="flex: 1;">
 
                 @foreach (var item in Model)
                 {
@@ -98,7 +98,7 @@
             </div>
 
 
-            <div class="cart-summary">
+            <div class="cart-summary" style="width: 380px; flex-shrink: 0;">
 
                 <h3>Order Summary</h3>
 

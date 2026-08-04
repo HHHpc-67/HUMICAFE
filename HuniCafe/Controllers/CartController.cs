@@ -24,8 +24,13 @@ namespace HuniCafe.Controllers
         }
 
 
-        public ActionResult AddToCart(int id)
+        public ActionResult AddToCart(int? id, int? quantity)
         {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Product");
+            }
+
             var product = db.Products.Find(id);
 
             if (product == null)
@@ -42,9 +47,12 @@ namespace HuniCafe.Controllers
 
             var item = cart.FirstOrDefault(x => x.ProductID == id);
 
+            // Lấy số lượng người dùng nhập, nếu không có thì mặc định là 1
+            int sl = quantity ?? 1;
+
             if (item != null)
             {
-                item.Quantity++;
+                item.Quantity += sl; // Cộng dồn số lượng chọn thêm
             }
             else
             {
@@ -54,13 +62,13 @@ namespace HuniCafe.Controllers
                     ProductName = product.ProductName,
                     Image = product.Image,
                     Price = product.Price,
-                    Quantity = 1
+                    Quantity = sl // Gán số lượng theo người dùng chọn
                 });
             }
 
             Session["Cart"] = cart;
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Cart"); // Hoặc trả về trang giỏ hàng của cậu
         }
 
 

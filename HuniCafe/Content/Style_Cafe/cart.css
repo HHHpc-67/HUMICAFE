@@ -58,22 +58,20 @@
     }
 
 
-/* CART CONTENT */
+/* CART CONTENT - ĐÃ SỬA: Đổi flex-direction thành row để Order Summary nằm bên phải */
 
 .cart-content {
-
-
     display: flex;
     gap: 30px;
-    flex-direction: column;
-
-
+    flex-direction: row;
+    align-items: flex-start;
 }
 
 
 /* CART ITEM */
 
 .cart-items {
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -199,16 +197,18 @@
     }
 
 
-/* SUMMARY (Đã fix lỗi tràn khung nút Đặt hàng) */
+/* SUMMARY*/
 
 .cart-summary {
+    width: 360px;
+    flex-shrink: 0;
     background: white;
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0,0,0,.08);
     position: sticky;
     top: 100px;
-    height: fit-content; /* Tự ôm trọn nội dung bên trong */
+    height: fit-content;
     box-sizing: border-box;
 }
 
@@ -232,15 +232,13 @@
     color: #5C4033;
     margin-top: 20px;
     padding-top: 15px;
-    border-top: 1px solid #eee; /* Thêm đường gạch ngang phân cách cho đẹp */
+    border-top: 1px solid #eee; 
 }
 
 
 
 
-/*CHECK OUTTTTTTTT*/
-
-    
+/*Check out*/
 
 .checkout-btn {
     width: 100%;
@@ -269,10 +267,12 @@
     margin-top: 5px;
 }
 
+/* ĐÃ SỬA: Đổi flex-direction thành row để Checkout xếp 2 cột song song */
 .checkout-container {
     display: flex;
     gap: 40px;
-    flex-direction:column;
+    flex-direction: row;
+    align-items: flex-start;
 }
 
 .checkout-left {

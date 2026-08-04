@@ -1,0 +1,44 @@
+﻿@model HuniCafe.Models.Category
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/LayOutPage/_AdminPage.cshtml";
+}
+<div class="category-card-container">
+    <div class="category-card-header">
+        <h3>Thêm danh mục mới</h3>
+        <p>Điền thông tin để tạo danh mục món mới cho HuniCafe</p>
+    </div>
+
+    <div class="category-card-body">
+        @using (Html.BeginForm("Create", "Category", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group-custom">
+                @Html.LabelFor(model => model.CategoryName)
+                @Html.TextBoxFor(model => model.CategoryName, new { @class = "form-control", @placeholder = "Nhập tên danh mục" })
+                @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group-custom">
+                @Html.LabelFor(model => model.CategoryDescription)
+                @Html.TextAreaFor(model => model.CategoryDescription, new { @class = "form-control", @rows = 3, @placeholder = "Nhập mô tả chi tiết cho danh mục" })
+                @Html.ValidationMessageFor(model => model.CategoryDescription, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group-custom">
+                <div class="custom-switch-box">
+                    @Html.CheckBoxFor(model => model.IsActive, new { @id = "IsActiveCheck", @style = "width: 18px; height: 18px; cursor: pointer;" })
+                    <label for="IsActiveCheck">Cho phép hiển thị danh mục này ngay trên Menu</label>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                <a href="@Url.Action("CategoryPage", "Category")" class="btn-custom-back">← Quay lại</a>
+                <button type="submit" class="btn-custom-submit">Tạo danh mục</button>
+            </div>
+        }
+    </div>
+</div>
+

@@ -1,0 +1,55 @@
+﻿@model HuniCafe.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/LayOutPage/_LayoutMainPage.cshtml";
+}
+
+<div class="detail-container">
+
+    <!-- Cột ảnh bên trái -->
+    <div class="detail-image-box">
+        <img src="@Model.Image" alt="@Model.ProductName" />
+    </div>
+
+    <!-- Cột thông tin bên phải -->
+    <div class="detail-info-box">
+
+        <h2 class="detail-title">@Model.ProductName</h2>
+
+        <p class="detail-price">
+            @String.Format("{0:N0} VNĐ", Model.Price)
+        </p>
+
+        @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post))
+        {
+            <input type="hidden" name="id" value="@Model.ProductID" />
+
+            <div class="detail-form-group">
+                <label>Số lượng:</label>
+                <input type="number" name="quantity" value="1" min="1" max="99" class="detail-input-qty" />
+            </div>
+
+            <div class="detail-actions">
+                <button type="submit" class="btn-add-cart">
+                    Thêm vào giỏ hàng
+                </button>
+
+                <a href="@Url.Action("MainPage", "Home")" class="btn-back">
+                    Quay lại
+                </a>
+            </div>
+        }
+
+    </div>
+
+</div>
+
+<!--Description-->
+<div class="product-description-section" style="margin-top: 40px; clear: both; width: 100%;">
+    <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Mô tả sản phẩm</h3>
+    <hr style="border: none; border-top: 1px solid #ddd; margin-bottom: 15px;" />
+    <div class="description-content">
+        <p>@Model.Description</p>
+    </div>
+</div>

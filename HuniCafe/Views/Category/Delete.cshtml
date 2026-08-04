@@ -1,0 +1,41 @@
+﻿@model HuniCafe.Models.Category
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/LayOutPage/_AdminPage.cshtml";
+}
+
+<div class="category-card-container">
+    <div class="category-card-header danger-header">
+        <h3>Xác nhận xóa danh mục</h3>
+        <p>Hành động này không thể hoàn tác!</p>
+    </div>
+
+    <div class="category-card-body">
+        <p class="text-danger font-weight-bold mb-3">Bạn có chắc chắn muốn xóa vĩnh viễn danh mục này khỏi hệ thống?</p>
+
+        <div class="detail-list">
+            <dl class="row mb-0">
+                <dt class="col-sm-4">Mã danh mục:</dt>
+                <dd class="col-sm-8"><strong>#@Model.CategoryID</strong></dd>
+
+                <dt class="col-sm-4">Tên danh mục:</dt>
+                <dd class="col-sm-8"><span class="text-primary font-weight-bold">@Model.CategoryName</span></dd>
+
+                <dt class="col-sm-4">Mô tả:</dt>
+                <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.CategoryDescription) ? "(Không có mô tả)" : Model.CategoryDescription)</dd>
+            </dl>
+        </div>
+
+        @using (Html.BeginForm("Delete", "Category", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.CategoryID)
+
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                <a href="@Url.Action("CategoryPage", "Category")" class="btn-custom-back">← Hủy bỏ</a>
+                <button type="submit" class="btn-custom-danger">Xóa vĩnh viễn</button>
+            </div>
+        }
+    </div>
+</div>

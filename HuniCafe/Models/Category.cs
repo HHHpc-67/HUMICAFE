@@ -5,22 +5,26 @@ namespace HuniCafe.Models
 {
     public class Category
     {
-        // Hàm khởi tạo (Constructor) giúp tự động tạo mới danh sách sản phẩm tránh lỗi null
         public Category()
         {
             Products = new HashSet<Product>();
+            IsActive = true; // Mặc định khi tạo mới thì danh mục sẽ được hiển thị
         }
-
         [Key]
         public int CategoryID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Tên danh mục không được để trống")]
         [StringLength(100)]
+        [Display(Name = "Tên danh mục")]
         public string CategoryName { get; set; }
 
-        [StringLength(100)]
+        [StringLength(500)]
         [DataType(DataType.MultilineText)]
+        [Display(Name = "Mô tả")]
         public string CategoryDescription { get; set; }
+
+        [Display(Name = "Trạng thái hiển thị")]
+        public bool IsActive { get; set; }
 
         // Navigation Property
         public virtual ICollection<Product> Products { get; set; }

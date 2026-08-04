@@ -17,7 +17,7 @@ namespace HuniCafe.Controllers
         //MainPage - Product List
         public ActionResult Index(int? categoryId)
         {
-            var products = db.Products.AsQueryable();
+            var products = db.Products.Where(p => p.Category.IsActive == true).AsQueryable();
 
             if (categoryId.HasValue)
             {
@@ -27,7 +27,8 @@ namespace HuniCafe.Controllers
             var model = new ProductViewModel
             {
                 Products = products.ToList(),
-                Categories = db.Categories.ToList(),
+                // 2. Chỉ lấy các Danh mục đang Active để hiện trên thanh Menu/Tab lọc
+                Categories = db.Categories.Where(c => c.IsActive == true).ToList(),
                 SelectedCategory = categoryId
             };
 
@@ -37,7 +38,7 @@ namespace HuniCafe.Controllers
         // ADMIN - Product List Page
         public ActionResult Product_Admin()
         {
-            var products = db.Products.Include(p => p.Category);
+            var products = db.Products.AsNoTracking().Include(p => p.Category).ToList();
             return View(products.ToList());
         }
 
@@ -132,7 +133,7 @@ namespace HuniCafe.Controllers
 
             return View(product);
         }
-
+        // POST: Product/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
