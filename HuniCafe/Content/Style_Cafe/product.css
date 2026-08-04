@@ -67,6 +67,7 @@
     .product-info h3 {
         margin-bottom: 10px;
         color: #5C4033;
+        min-height: 65px;/* cố định để khỏi bị kéo giản*/
     }
 
     .product-info .cart-btn {
