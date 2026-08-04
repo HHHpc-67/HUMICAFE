@@ -1,46 +1,46 @@
 ﻿@model List<HuniCafe.Models.Order>
 @{
-    ViewBag.Title = "MyOrders";
+    ViewBag.Title = "Đơn hàng của tôi";
     Layout = "~/Views/LayOutPage/_LayoutMainPage.cshtml";
 }
-<div class="container">
-    <h2>Đơn hàng của tôi</h2>
 
-    <table class="table">
+<div class="container my-4">
+    <h2 class="mb-4">Đơn hàng của tôi</h2>
 
-        <tr>
-            <th>Mã đơn</th>
-            <th>Ngày</th>
-            <th>Tổng tiền</th>
-            <th>Trạng thái</th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-
-                <td>#@item.OrderID</td>
-
-                <td>@item.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
-
-                <td>@String.Format("{0:N0} VNĐ", item.TotalAmount)</td>
-
-                <td>@item.Status</td>
-
-                <td>
-
-                    <a href="@Url.Action("Details","Order",new{id=item.OrderID})" class="btn btn-success">
-
-                        Xem
-
-                    </a>
-
-                </td>
-
-            </tr>
-        }
-
-    </table>
-
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info">
+            Bạn chưa có đơn hàng nào.
+        </div>
+    }
+    else
+    {
+        <table class="table table-bordered align-middle">
+            <thead>
+                <tr>
+                    <th>Mã đơn</th>
+                    <th>Ngày đặt</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>#@item.OrderID</td>
+                        <td>@item.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td class="text-danger fw-bold">@String.Format("{0:N0} VNĐ", item.TotalAmount)</td>
+                        <td><span class="badge bg-primary">@item.Status</span></td>
+                        <td>
+                            <a href="@Url.Action("Details", "Order", new { id = item.OrderID })" class="btn btn-success btn-sm">
+                                Xem
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </div>

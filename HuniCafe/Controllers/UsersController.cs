@@ -1,6 +1,7 @@
 ﻿using HuniCafe.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -35,7 +36,7 @@ namespace HuniCafe.Controllers
                     Session["UserID"] = user.UserID;
                     Session["FullName"] = user.FullName;
                     Session["Role"] = user.Role;
-                    Session["User"] = user; // BỔ SUNG DÒNG NÀY: Lưu nguyên đối tượng user vào Session
+                    Session["User"] = user; // Lưu nguyên đối tượng user vào Session
 
                     if (user.Role == "Admin")
                     {
@@ -58,7 +59,7 @@ namespace HuniCafe.Controllers
             return View();
         }
 
-        // GET: Users/Admin (Trang Quản trị)
+        // GET: Users/Admin (Trang Quản trị Dashboard)
         public ActionResult Admin()
         {
             // Kiểm tra phân quyền: Phải là Admin mới được vào
@@ -67,7 +68,24 @@ namespace HuniCafe.Controllers
                 return RedirectToAction("Login", "Users");
             }
 
-            return View();
+            // 1. Tính Tổng doanh thu (Chỉ tính các đơn đã Hoàn thành)
+            ViewBag.TotalRevenue = db.Orders
+                .Where(o => o.Status == "Completed")
+                .Sum(o => (decimal?)o.TotalAmount) ?? 0;
+
+            // 2. Thống kê số liệu đơn hàng và sản phẩm
+            ViewBag.TotalOrders = db.Orders.Count();
+            ViewBag.PendingOrders = db.Orders.Count(o => o.Status == "Pending");
+            ViewBag.TotalProducts = db.Products.Count();
+
+            // 3. Lấy 5 đơn hàng mới nhất kèm thông tin Khách hàng để hiển thị bảng
+            var recentOrders = db.Orders
+                .Include(o => o.User)
+                .OrderByDescending(o => o.OrderDate)
+                .Take(5)
+                .ToList();
+
+            return View(recentOrders);
         }
 
         // GET: Users/Logout
@@ -109,14 +127,10 @@ namespace HuniCafe.Controllers
 
                 if (checkUser != null)
                 {
-                    if (checkUser.Username == model.Username)
-                    {
-                        ViewBag.Error = "Tên đăng nhập này đã được sử dụng!";
-                    }
-                    else
-                    {
-                        ViewBag.Error = "Email này đã được sử dụng!";
-                    }
+                    // Tối ưu dòng code: Dùng toán tử 3 ngôi gán thông báo lỗi gọn gàng
+                    ViewBag.Error = (checkUser.Username == model.Username)
+                        ? "Tên đăng nhập này đã được sử dụng!"
+                        : "Email này đã được sử dụng!";
                     return View(model);
                 }
 

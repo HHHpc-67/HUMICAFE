@@ -1,0 +1,87 @@
+﻿@model IEnumerable<HuniCafe.Models.Order>
+
+@{
+    ViewBag.Title = "Quản lý đơn hàng";
+    Layout = "~/Views/LayOutPage/_AdminPage.cshtml";
+}
+
+<div class="container-fluid my-4">
+    <h2 class="mb-4">Quản Lý Đơn Hàng</h2>
+
+    <div class="mb-3">
+        <a href="@Url.Action("AdminOrders", "Order")" class="btn btn-outline-secondary btn-sm">Tất cả</a>
+        <a href="@Url.Action("AdminOrders", "Order", new { status = "Pending" })" class="btn btn-outline-warning btn-sm">Chờ xử lý</a>
+        <a href="@Url.Action("AdminOrders", "Order", new { status = "Confirmed" })" class="btn btn-outline-info btn-sm">Đã xác nhận</a>
+        <a href="@Url.Action("AdminOrders", "Order", new { status = "Completed" })" class="btn btn-outline-success btn-sm">Hoàn thành</a>
+        <a href="@Url.Action("AdminOrders", "Order", new { status = "Cancelled" })" class="btn btn-outline-danger btn-sm">Đã hủy</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Mã đơn</th>
+                    <th>Khách hàng</th>
+                    <th>Số điện thoại</th>
+                    <th>Ngày đặt</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Cập nhật trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><strong>#@item.OrderID</strong></td>
+                        <td>@(item.User != null ? item.User.UserID.ToString() : "Khách vãng lai")</td>
+                        <td>@item.Phone</td>
+                        <td>@item.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td class="text-danger fw-bold">@String.Format("{0:N0} VNĐ", item.TotalAmount)</td>
+                        <td>
+                            @switch (item.Status)
+                            {
+                                case "Pending":
+                                    <span class="badge bg-warning text-dark">Chờ xử lý</span>
+                                    break;
+                                case "Confirmed":
+                                    <span class="badge bg-info text-dark">Đã xác nhận</span>
+                                    break;
+                                case "Shipping":
+                                    <span class="badge bg-primary">Đang giao tới</span>
+                                    break;
+                                case "Completed":
+                                    <span class="badge bg-success">Hoàn thành</span>
+                                    break;
+                                case "Cancelled":
+                                    <span class="badge bg-danger">Hủy bỏ</span>
+                                    break;
+                                default:
+                                    <span class="badge bg-secondary">@item.Status</span>
+                                    break;
+                            }
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("UpdateStatus", "Order", FormMethod.Post, new { @class = "d-flex gap-2" }))
+                            {
+                                <input type="hidden" name="orderId" value="@item.OrderID" />
+                                <select name="status" class="form-select form-select-sm" style="width: 130px;">
+                                    <option value="Pending" @(item.Status == "Pending" ? "selected" : "")>Chờ xử lý</option>
+                                    <option value="Confirmed" @(item.Status == "Confirmed" ? "selected" : "")>Đã xác nhận</option>
+                                    <option value="Shipping" @(item.Status == "Shipping" ? "selected" : "")>Đang giao tới</option>
+                                    <option value="Completed" @(item.Status == "Completed" ? "selected" : "")>Hoàn thành</option>
+                                    <option value="Cancelled" @(item.Status == "Cancelled" ? "selected" : "")>Hủy bỏ</option>
+                                </select>
+                                <button type="submit" class="btn btn-sm btn-primary">Lưu</button>
+                            }
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Details", "Order", new { id = item.OrderID })" class="btn btn-sm btn-info">Xem</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

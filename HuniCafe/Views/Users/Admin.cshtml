@@ -1,7 +1,111 @@
-﻿@{
-    ViewBag.Title = "Trang Quản Trị Admin";
+﻿@model IEnumerable<HuniCafe.Models.Order>
+
+@{
+    ViewBag.Title = "Dashboard Quản trị";
     Layout = "~/Views/LayOutPage/_AdminPage.cshtml";
 }
 
-<h3>Nội dung Dashboard Admin hiển thị ở đây!</h3>
-<p>Chào mừng bạn quay trở lại trang quản trị HuniCafe.</p>
+<div class="container-fluid my-4">
+    <h3 class="mb-4 fw-bold">Tổng Quan Hệ Thống</h3>
+
+    <!-- 4 Thẻ Thống Kê Nhanh -->
+    <div class="row g-3 mb-4">
+        <!-- Doanh thu -->
+        <div class="col-md-3">
+            <div class="card bg-success text-white p-3 shadow-sm rounded-3">
+                <small class="text-white-50 text-uppercase fw-bold">Doanh thu</small>
+                <h4 class="mb-0 fw-bold mt-2">@String.Format("{0:N0} VNĐ", ViewBag.TotalRevenue)</h4>
+            </div>
+        </div>
+
+        <!-- Tổng đơn hàng -->
+        <div class="col-md-3">
+            <div class="card bg-primary text-white p-3 shadow-sm rounded-3">
+                <small class="text-white-50 text-uppercase fw-bold">Tổng đơn hàng</small>
+                <h4 class="mb-0 fw-bold mt-2">@ViewBag.TotalOrders</h4>
+            </div>
+        </div>
+
+        <!-- Đơn chờ xử lý -->
+        <div class="col-md-3">
+            <div class="card bg-warning text-dark p-3 shadow-sm rounded-3">
+                <small class="text-dark-50 text-uppercase fw-bold">Đơn chờ xử lý</small>
+                <h4 class="mb-0 fw-bold mt-2">@ViewBag.PendingOrders</h4>
+            </div>
+        </div>
+
+        <!-- Tổng sản phẩm -->
+        <div class="col-md-3">
+            <div class="card bg-info text-dark p-3 shadow-sm rounded-3">
+                <small class="text-dark-50 text-uppercase fw-bold">Sản phẩm</small>
+                <h4 class="mb-0 fw-bold mt-2">@ViewBag.TotalProducts</h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bảng 5 Đơn Hàng Mới Nhất -->
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+            <h5 class="m-0 fw-bold">Đơn hàng gần đây</h5>
+            <a href="@Url.Action("AdminOrders", "Order")" class="btn btn-sm btn-outline-primary">Xem tất cả</a>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Mã đơn</th>
+                            <th>Khách hàng</th>
+                            <th>Ngày đặt</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Count() > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td><strong>#@item.OrderID</strong></td>
+                                    <td>@(item.User != null ? item.User.FullName ?? item.User.Username : "Khách vãng lai")</td>
+                                    <td>@item.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td class="text-danger fw-bold">@String.Format("{0:N0} VNĐ", item.TotalAmount)</td>
+                                    <td>
+                                        @switch (item.Status)
+                                        {
+                                            case "Pending":
+                                                <span class="badge bg-warning text-dark">Pending</span>
+                                                break;
+                                            case "Confirmed":
+                                                <span class="badge bg-info text-dark">Confirmed</span>
+                                                break;
+                                            case "Shipping":
+                                                <span class="badge bg-primary">Shipping</span>
+                                                break;
+                                            case "Completed":
+                                                <span class="badge bg-success">Completed</span>
+                                                break;
+                                            case "Cancelled":
+                                                <span class="badge bg-danger">Cancelled</span>
+                                                break;
+                                            default:
+                                                <span class="badge bg-secondary">@item.Status</span>
+                                                break;
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-3">Chưa có đơn hàng nào.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

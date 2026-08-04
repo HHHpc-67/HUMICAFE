@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\EntityFramework.6.5.2\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.2\build\EntityFramework.props')" />
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -50,10 +50,10 @@
       <HintPath>..\packages\CloudinaryDotNet.1.29.2\lib\net452\CloudinaryDotNet.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.5.2\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.5.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -204,10 +204,6 @@
     <Compile Include="Migrations\202608010559550_AddPhoneAndAddressToOder.Designer.cs">
       <DependentUpon>202608010559550_AddPhoneAndAddressToOder.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202608020342282_themimagechoorder.cs" />
-    <Compile Include="Migrations\202608020342282_themimagechoorder.Designer.cs">
-      <DependentUpon>202608020342282_themimagechoorder.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\202608031403330_AddIsActiveToCategory.cs" />
     <Compile Include="Migrations\202608031403330_AddIsActiveToCategory.Designer.cs">
       <DependentUpon>202608031403330_AddIsActiveToCategory.cs</DependentUpon>
@@ -318,6 +314,7 @@
     <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Category\Delete.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Order\AdminOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -365,9 +362,6 @@
     <EmbeddedResource Include="Migrations\202608010559550_AddPhoneAndAddressToOder.resx">
       <DependentUpon>202608010559550_AddPhoneAndAddressToOder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202608020342282_themimagechoorder.resx">
-      <DependentUpon>202608020342282_themimagechoorder.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202608031403330_AddIsActiveToCategory.resx">
       <DependentUpon>202608031403330_AddIsActiveToCategory.cs</DependentUpon>
     </EmbeddedResource>
@@ -405,10 +399,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.5.2\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.2\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.5.2\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.2\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
   </Target>
-  <Import Project="..\packages\EntityFramework.6.5.2\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.2\build\EntityFramework.targets')" />
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

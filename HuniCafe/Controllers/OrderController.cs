@@ -1,10 +1,10 @@
 ﻿using HuniCafe.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Data.Entity;
 
 namespace HuniCafe.Controllers
 {
@@ -12,6 +12,34 @@ namespace HuniCafe.Controllers
     {
         private readonly HuniCafeDB db = new HuniCafeDB();
 
+        // 1. ADMIN: Xem toàn bộ đơn hàng
+        public ActionResult AdminOrders(string status)
+        {
+            var orders = db.Orders.Include(o => o.User).AsQueryable();
+
+            if (!string.IsNullOrEmpty(status))
+            {
+                orders = orders.Where(o => o.Status == status);
+            }
+
+            ViewBag.CurrentStatus = status;
+            return View(orders.OrderByDescending(o => o.OrderDate).ToList());
+        }
+
+        // 2. ADMIN: Cập nhật trạng thái đơn
+        [HttpPost]
+        public ActionResult UpdateStatus(int orderId, string status)
+        {
+            var order = db.Orders.Find(orderId);
+            if (order != null)
+            {
+                order.Status = status;
+                db.SaveChanges();
+            }
+            return RedirectToAction("AdminOrders");
+        }
+
+        // 3. KHÁCH HÀNG: Lịch sử đơn hàng cá nhân
         public ActionResult MyOrders()
         {
             if (Session["UserID"] == null)
@@ -29,9 +57,7 @@ namespace HuniCafe.Controllers
             return View(orders);
         }
 
-
-
-
+        // 4. CHUNG: Xem chi tiết đơn hàng
         public ActionResult Details(int id)
         {
             if (Session["UserID"] == null)
@@ -39,11 +65,9 @@ namespace HuniCafe.Controllers
                 return RedirectToAction("Login", "Users");
             }
 
-            int userId = (int)Session["UserID"];
-
             var order = db.Orders
                 .Include(o => o.OrderDetails.Select(d => d.Product))
-                .FirstOrDefault(o => o.OrderID == id && o.UserID == userId);
+                .FirstOrDefault(o => o.OrderID == id);
 
             if (order == null)
             {
@@ -51,6 +75,15 @@ namespace HuniCafe.Controllers
             }
 
             return View(order);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }
