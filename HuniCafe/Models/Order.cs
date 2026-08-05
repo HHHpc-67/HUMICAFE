@@ -34,5 +34,12 @@ namespace HuniCafe.Models
 
         // Navigation Property
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+
+        public int? CouponID { get; set; }
+
+        public decimal DiscountAmount { get; set; }
+
+        [ForeignKey("CouponID")]
+        public virtual Coupon Coupon { get; set; }
     }
 }

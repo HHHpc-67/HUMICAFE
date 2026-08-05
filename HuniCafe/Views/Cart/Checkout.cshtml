@@ -3,6 +3,12 @@
 @{
     ViewBag.Title = "Checkout";
     Layout = "~/Views/LayOutPage/_LayoutMainPage.cshtml";
+
+    // 📌 Lấy số tiền giảm từ Session
+    decimal discountAmount = Session["DiscountAmount"] != null ? Convert.ToDecimal(Session["DiscountAmount"]) : 0m;
+    decimal subTotal = Model.TotalAmount;
+    decimal finalTotal = subTotal - discountAmount;
+    if (finalTotal < 0) { finalTotal = 0; }
 }
 <link href="~/Content/bootstrap-grid.css" rel="stylesheet" />
 <div class="container">
@@ -78,9 +84,23 @@
             }
         </table>
 
+        @* Hiển thị giảm giá nếu có áp mã *@
+        @if (discountAmount > 0)
+        {
+            <div style="display: flex; justify-content: space-between; margin-top: 15px; font-weight: 500; color: #28a745;">
+                <span>Tạm tính:</span>
+                <span>@String.Format("{0:N0} VNĐ", subTotal)</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 5px; font-weight: 500; color: #28a745;">
+                <span>Giảm giá (@Session["CouponCode"]):</span>
+                <span>-@String.Format("{0:N0} VNĐ", discountAmount)</span>
+            </div>
+            <hr />
+        }
+
         <h3>
             Tổng tiền:
-            @String.Format("{0:N0} VNĐ", Model.TotalAmount)
+            @String.Format("{0:N0} VNĐ", finalTotal)
         </h3>
 
         <button type="submit" class="checkout-btn">

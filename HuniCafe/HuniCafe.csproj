@@ -176,6 +176,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CouponController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -208,9 +209,14 @@
     <Compile Include="Migrations\202608031403330_AddIsActiveToCategory.Designer.cs">
       <DependentUpon>202608031403330_AddIsActiveToCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202608051159436_AddCouponAndDiscountToOrders.cs" />
+    <Compile Include="Migrations\202608051159436_AddCouponAndDiscountToOrders.Designer.cs">
+      <DependentUpon>202608051159436_AddCouponAndDiscountToOrders.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Cart.cs" />
+    <Compile Include="Models\Coupon.cs" />
     <Compile Include="Models\HuniCafeDB.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Order.cs" />
@@ -258,6 +264,7 @@
     <Content Include="Content\Style_Cafe\layout.css" />
     <Content Include="Content\Style_Cafe\order.css" />
     <Content Include="Content\Style_Cafe\product.css" />
+    <Content Include="Content\Style_Cafe\UuDai.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -316,10 +323,14 @@
     <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Order\AdminOrders.cshtml" />
     <Content Include="Views\Users\ManageUsers.cshtml" />
+    <Content Include="Views\UuDai\CouponAdmin.cshtml" />
+    <Content Include="Views\UuDai\UuDai.cshtml" />
+    <Content Include="Views\UuDai\Create.cshtml" />
+    <Content Include="Views\UuDai\Edit.cshtml" />
+    <Content Include="Views\UuDai\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\UserAdmin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -366,6 +377,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202608031403330_AddIsActiveToCategory.resx">
       <DependentUpon>202608031403330_AddIsActiveToCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202608051159436_AddCouponAndDiscountToOrders.resx">
+      <DependentUpon>202608051159436_AddCouponAndDiscountToOrders.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

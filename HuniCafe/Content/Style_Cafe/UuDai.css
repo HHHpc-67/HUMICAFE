@@ -1,0 +1,39 @@
+﻿/* Container chính */
+.uudai-container {
+    margin-top: 0 !important;
+}
+
+/* Header Banner */
+.uudai-banner {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    border: 1px solid #eaedf1;
+}
+
+.uudai-title {
+    color: #1a253f;
+    font-weight: 700;
+    font-size: 1.6rem;
+}
+
+/* Card Mã giảm giá */
+.coupon-card {
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+    .coupon-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+    }
+
+/* Thanh progress */
+.coupon-progress {
+    height: 6px;
+    border-radius: 3px;
+    background-color: #e9ecef;
+}

@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 namespace HuniCafe.Controllers
 {
     public class CartController : Controller
     {
         private readonly HuniCafeDB db = new HuniCafeDB();
+
         // GET: Cart
         public ActionResult Index()
         {
@@ -22,7 +24,6 @@ namespace HuniCafe.Controllers
 
             return View(cart);
         }
-
 
         public ActionResult AddToCart(int? id, int? quantity)
         {
@@ -47,12 +48,11 @@ namespace HuniCafe.Controllers
 
             var item = cart.FirstOrDefault(x => x.ProductID == id);
 
-            // Lấy số lượng người dùng nhập, nếu không có thì mặc định là 1
             int sl = quantity ?? 1;
 
             if (item != null)
             {
-                item.Quantity += sl; // Cộng dồn số lượng chọn thêm
+                item.Quantity += sl;
             }
             else
             {
@@ -62,17 +62,16 @@ namespace HuniCafe.Controllers
                     ProductName = product.ProductName,
                     Image = product.Image,
                     Price = product.Price,
-                    Quantity = sl // Gán số lượng theo người dùng chọn
+                    Quantity = sl
                 });
             }
 
             Session["Cart"] = cart;
 
-            return RedirectToAction("Index", "Cart"); // Hoặc trả về trang giỏ hàng của cậu
+            return RedirectToAction("Index", "Cart");
         }
 
-
-        //nút tăng số lượng 
+        // Tăng số lượng
         public ActionResult Increase(int id)
         {
             var cart = Session["Cart"] as List<Cart>;
@@ -92,9 +91,7 @@ namespace HuniCafe.Controllers
             return RedirectToAction("Index");
         }
 
-
-
-        //giảm
+        // Giảm
         public ActionResult Decrease(int id)
         {
             var cart = Session["Cart"] as List<Cart>;
@@ -119,10 +116,7 @@ namespace HuniCafe.Controllers
             return RedirectToAction("Index");
         }
 
-
-
-        //nút xáo
-        
+        // Xóa
         public ActionResult Remove(int id)
         {
             var cart = Session["Cart"] as List<Cart>;
@@ -142,25 +136,65 @@ namespace HuniCafe.Controllers
             return RedirectToAction("Index");
         }
 
+        // 📌 BỔ SUNG: ACTION XỬ LÝ ÁP DỤNG MÃ GIẢM GIÁ (AJAX)
+        [HttpPost]
+        public JsonResult ApplyCoupon(string couponCode)
+        {
+            if (string.IsNullOrWhiteSpace(couponCode))
+            {
+                Session["CouponCode"] = null;
+                Session["DiscountAmount"] = 0m;
+                return Json(new { success = true, message = "Đã hủy áp dụng mã giảm giá." });
+            }
 
-        
-        //public ActionResult Checkout()
-        //{
-        //    // Kiểm tra đăng nhập
-        //    if (Session["UserID"] == null)
-        //    {
-        //        return RedirectToAction("Login", "Users");
-        //    }
+            // Tìm mã không phân biệt hoa thường và đang kích hoạt
+            var coupon = db.Coupons.FirstOrDefault(c => c.Code.ToLower() == couponCode.Trim().ToLower() && c.IsActive);
 
-        //    var cart = Session["Cart"] as List<Cart>;
+            if (coupon == null)
+            {
+                return Json(new { success = false, message = "Mã giảm giá không tồn tại hoặc không hợp lệ!" });
+            }
 
-        //    if (cart == null || !cart.Any())
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
+            if (DateTime.Now < coupon.StartDate || DateTime.Now > coupon.EndDate)
+            {
+                return Json(new { success = false, message = "Mã giảm giá đã hết hạn hoặc chưa đến đợt!" });
+            }
 
-        //    return View(cart);
-        //}
+            if (coupon.UsedQuantity >= coupon.Quantity)
+            {
+                return Json(new { success = false, message = "Mã giảm giá đã hết lượt sử dụng!" });
+            }
+
+            var cart = Session["Cart"] as List<Cart>;
+            decimal subTotal = (cart != null && cart.Any()) ? cart.Sum(x => x.Total) : 0m;
+
+            if (subTotal < coupon.MinimumOrderValue)
+            {
+                return Json(new { success = false, message = $"Đơn hàng phải đạt tối thiểu {coupon.MinimumOrderValue.ToString("N0")} VNĐ để áp dụng mã này!" });
+            }
+
+            // Tính số tiền giảm
+            decimal discount = 0m;
+            if (coupon.DiscountType == "Percentage")
+            {
+                discount = subTotal * (coupon.DiscountValue / 100m);
+            }
+            else
+            {
+                discount = coupon.DiscountValue;
+            }
+
+            if (discount > subTotal)
+            {
+                discount = subTotal;
+            }
+
+            Session["CouponCode"] = coupon.Code;
+            Session["DiscountAmount"] = discount;
+
+            return Json(new { success = true, message = "Áp dụng mã giảm giá thành công!" });
+        }
+
         [HttpGet]
         public ActionResult Checkout()
         {
@@ -177,7 +211,6 @@ namespace HuniCafe.Controllers
             }
 
             int userId = (int)Session["UserID"];
-
             var user = db.Users.Find(userId);
 
             var model = new CheckoutViewModel
@@ -193,7 +226,6 @@ namespace HuniCafe.Controllers
             return View(model);
         }
 
-        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Checkout(CheckoutViewModel model)
@@ -210,12 +242,9 @@ namespace HuniCafe.Controllers
                 return RedirectToAction("Index");
             }
 
-
-            // validation Gán lại dữ liệu cho ViewModel khi trả về View
             model.Cart = cart;
             model.TotalAmount = cart.Sum(x => x.Total);
 
-            // validation  Nếu dữ liệu không hợp lệ thì quay lại Checkout và khong lưu vào db 
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -223,16 +252,20 @@ namespace HuniCafe.Controllers
 
             int userId = (int)Session["UserID"];
 
+            // 📌 BỔ SUNG: Tính toán tổng tiền thực tế sau khi trừ giảm giá
+            decimal subTotal = cart.Sum(x => x.Total);
+            decimal discountAmount = Session["DiscountAmount"] != null ? Convert.ToDecimal(Session["DiscountAmount"]) : 0m;
+            decimal finalTotal = subTotal - discountAmount;
+            if (finalTotal < 0) { finalTotal = 0; }
+
             Order order = new Order
             {
                 UserID = userId,
                 OrderDate = DateTime.Now,
-                TotalAmount = cart.Sum(x => x.Total),
+                TotalAmount = finalTotal, // Đã trừ tiền giảm giá
                 Status = OrderStatus.Pending,
-
                 Phone = model.Phone,
-                Address = model.Address,
-               
+                Address = model.Address
             };
 
             foreach (var item in cart)
@@ -245,60 +278,27 @@ namespace HuniCafe.Controllers
                 });
             }
 
+            // 📌 BỔ SUNG: Tăng lượt sử dụng của Coupon trong CSDL (nếu có dùng mã)
+            if (Session["CouponCode"] != null)
+            {
+                string code = Session["CouponCode"].ToString();
+                var coupon = db.Coupons.FirstOrDefault(c => c.Code == code);
+                if (coupon != null)
+                {
+                    coupon.UsedQuantity += 1;
+                }
+            }
+
             db.Orders.Add(order);
             db.SaveChanges();
 
+            // Dọn dẹp Session
             Session.Remove("Cart");
+            Session.Remove("CouponCode");
+            Session.Remove("DiscountAmount");
 
             return RedirectToAction("Success");
         }
-
-
-        ////tạo orde  
-        //public ActionResult PlaceOrder()
-        //{
-        //    if (Session["UserID"] == null)
-        //    {
-        //        return RedirectToAction("Login", "Account");
-        //    }
-
-        //    var cart = Session["Cart"] as List<Cart>;
-
-        //    if (cart == null || !cart.Any())
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    int userId = (int)Session["UserID"];
-
-        //    Order order = new Order
-        //    {
-        //        UserID = userId,
-        //        OrderDate = DateTime.Now,
-        //        TotalAmount = cart.Sum(x => x.Total),
-        //        Status = OrderStatus.Pending        // dùng class OrderStatus để định nghĩa trạng thái đơn hàng thay vì hardcode Status = "Pending"
-        //    };
-
-        //    foreach (var item in cart)
-        //    {
-        //        order.OrderDetails.Add(new OrderDetail
-        //        {
-        //            ProductID = item.ProductID,
-        //            Quantity = item.Quantity,
-        //            Price = item.Price
-        //        });
-        //    }
-
-        //    db.Orders.Add(order);
-
-        //    db.SaveChanges();
-
-        //    Session.Remove("Cart"); //sau khi thành công thì xóa cart
-
-        //    return RedirectToAction("Success");
-        //}
-
-
 
         public ActionResult Success()
         {

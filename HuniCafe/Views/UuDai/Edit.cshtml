@@ -1,0 +1,100 @@
+﻿@model HuniCafe.Models.Coupon
+
+@{
+    ViewBag.Title = "Cập nhật mã ưu đãi";
+    Layout = "~/Views/LayOutPage/_AdminPage.cshtml";
+}
+
+<div class="container-fluid py-3">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="text-dark font-weight-bold"><i class="fas fa-edit mr-2"></i>Cập Nhật Mã Ưu Đãi: <span class="text-primary">@Model.Code</span></h3>
+        <a href="@Url.Action("Index", "UuDai")" class="btn btn-secondary">
+            <i class="fas fa-arrow-left mr-1"></i> Quay lại
+        </a>
+    </div>
+
+    @using (Html.BeginForm("Edit", "UuDai", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.CreatedDate)
+
+        <div class="card shadow-sm p-4">
+            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label class="font-weight-bold">Mã Giảm Giá <span class="text-danger">*</span></label>
+                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger small" })
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label class="font-weight-bold">Loại Giảm Giá</label>
+                    <select name="DiscountType" class="form-control">
+                        <option value="Percentage" @(Model.DiscountType == "Percentage" ? "selected" : "")>Phần trăm (%)</option>
+                        <option value="FixedAmount" @(Model.DiscountType == "FixedAmount" ? "selected" : "")>Số tiền cố định (VNĐ)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label class="font-weight-bold">Giá Trị Giảm <span class="text-danger">*</span></label>
+                    @Html.EditorFor(model => model.DiscountValue, new { htmlAttributes = new { @class = "form-control", @type = "number", @step = "any", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.DiscountValue, "", new { @class = "text-danger small" })
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label class="font-weight-bold">Đơn Tối Thiểu (VNĐ)</label>
+                    @Html.EditorFor(model => model.MinimumOrderValue, new { htmlAttributes = new { @class = "form-control", @type = "number", @step = "any" } })
+                    @Html.ValidationMessageFor(model => model.MinimumOrderValue, "", new { @class = "text-danger small" })
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label class="font-weight-bold">Ngày Bắt Đầu <span class="text-danger">*</span></label>
+                    <input type="date" name="StartDate" class="form-control" value="@Model.StartDate.ToString("yyyy-MM-dd")" required />
+                    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger small" })
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label class="font-weight-bold">Ngày Kết Thúc <span class="text-danger">*</span></label>
+                    <input type="date" name="EndDate" class="form-control" value="@Model.EndDate.ToString("yyyy-MM-dd")" required />
+                    @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger small" })
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label class="font-weight-bold">Tổng Số Lượng <span class="text-danger">*</span></label>
+                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger small" })
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label class="font-weight-bold">Đã Sử Dụng</label>
+                    @Html.EditorFor(model => model.UsedQuantity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                </div>
+
+                <div class="form-group col-md-4 align-self-center mt-3">
+                    <div class="custom-control custom-switch">
+                        @Html.CheckBoxFor(model => model.IsActive, new { @class = "custom-control-input", id = "IsActive" })
+                        <label class="custom-control-label font-weight-bold text-dark" for="IsActive">Kích hoạt mã</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold">Mô Tả</label>
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = "3", @placeholder = "Nhập thông tin chi tiết về mã giảm giá..." })
+            </div>
+
+            <div class="mt-3 pt-3 border-top">
+                <button type="submit" class="btn btn-primary font-weight-bold"><i class="fas fa-save mr-1"></i> Lưu Cập Nhật</button>
+                <a href="@Url.Action("Index", "UuDai")" class="btn btn-secondary font-weight-bold ml-2">Hủy</a>
+            </div>
+        </div>
+    }
+</div>

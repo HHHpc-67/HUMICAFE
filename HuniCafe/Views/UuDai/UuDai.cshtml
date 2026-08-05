@@ -1,0 +1,142 @@
+﻿@model IEnumerable<HuniCafe.Models.Coupon>
+
+@{
+    ViewBag.Title = "Ưu Đãi - HuniCafe";
+    Layout = "~/Views/LayOutPage/_LayoutMainPage.cshtml";
+}
+
+<!-- Nhúng icon và CSS riêng -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+<div class="container py-4 uudai-container">
+    <!-- Header Banner -->
+    <div class="row align-items-center uudai-banner">
+        <div class="col-md-8">
+            <h2 class="uudai-title">Mã Giảm Giá HuniCafe</h2>
+            <p class="text-muted mb-0">Sử dụng mã ưu đãi để thưởng thức những ly cà phê thơm ngon với giá ưu đãi nhất!</p>
+        </div>
+        <div class="col-md-4 text-md-right mt-3 mt-md-0">
+            @using (Html.BeginForm("UuDai", "UuDai", FormMethod.Get, new { @class = "form-inline justify-content-md-end" }))
+            {
+                <div class="input-group">
+                    <input type="text" name="searchString" value="@ViewBag.SearchString" class="form-control" placeholder="Nhập mã hoặc từ khóa..." />
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Tìm</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Danh sách Mã Giảm Giá -->
+    <div class="row">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                var remaining = item.Quantity - item.UsedQuantity;
+                var percentUsed = item.Quantity > 0 ? (int)((double)item.UsedQuantity / item.Quantity * 100) : 100;
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100 border-primary shadow-sm coupon-card">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                            <span class="font-weight-bold h5 mb-0"><i class="fas fa-tag mr-2"></i>@item.Code</span>
+                            <span class="badge badge-light text-primary">
+                                @(item.DiscountType == "Percentage" ? $"Giảm {item.DiscountValue}%" : $"Giảm {item.DiscountValue:N0}đ")
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title text-dark font-weight-bold">@item.Description</h6>
+                            <hr />
+                            <p class="card-text small text-muted mb-1">
+                                <i class="fas fa-shopping-cart mr-1"></i>Đơn tối thiểu: <strong>@item.MinimumOrderValue.ToString("N0") VNĐ</strong>
+                            </p>
+                            <p class="card-text small text-muted mb-1">
+                                <i class="fas fa-calendar-alt mr-1"></i>Hạn dùng: @item.StartDate.ToString("dd/MM/yyyy") - @item.EndDate.ToString("dd/MM/yyyy")
+                            </p>
+                            <p class="card-text small text-muted mb-2">
+                                <i class="fas fa-fire mr-1 text-danger"></i>Còn lại: <strong>@remaining / @item.Quantity</strong> mã
+                            </p>
+
+                            <div class="progress mb-3 coupon-progress">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: @(percentUsed)" aria-valuenow="@percentUsed" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+
+                            <button type="button" class="btn btn-outline-primary btn-block copy-btn" data-code="@item.Code">
+                                <i class="fas fa-copy mr-1"></i> Sao chép mã
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center py-5">
+                <i class="fas fa-ticket-alt fa-4x text-muted mb-3"></i>
+                <h5 class="text-secondary">Hiện tại chưa có mã giảm giá nào phù hợp.</h5>
+                <p class="text-muted">Hãy quay lại sau hoặc thử tìm kiếm với từ khóa khác nhé!</p>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', '.copy-btn', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                var code = btn.data('code');
+
+                // Cách 1: Dùng Navigator Clipboard API
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(code).then(function () {
+                        showSuccess(btn);
+                    }).catch(function () {
+                        fallbackCopyTextToClipboard(code, btn);
+                    });
+                } else {
+                    // Cách 2: Dự phòng cho môi trường không hỗ trợ Navigator
+                    fallbackCopyTextToClipboard(code, btn);
+                }
+            });
+
+            function fallbackCopyTextToClipboard(text, btn) {
+                var textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";  // Tránh cuộn trang
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+
+                try {
+                    var successful = document.execCommand('copy');
+                    if (successful) {
+                        showSuccess(btn);
+                    } else {
+                        alert('Không thể sao chép mã. Vui lòng tự gõ: ' + text);
+                    }
+                } catch (err) {
+                    alert('Lỗi sao chép mã: ' + text);
+                }
+
+                document.body.removeChild(textArea);
+            }
+
+            function showSuccess(btn) {
+                var originalHtml = btn.html();
+                btn.removeClass('btn-outline-primary')
+                    .addClass('btn-success')
+                    .html('<i class="fas fa-check mr-1"></i> Đã sao chép!');
+
+                setTimeout(function () {
+                    btn.removeClass('btn-success')
+                        .addClass('btn-outline-primary')
+                        .html(originalHtml);
+                }, 2000);
+            }
+        });
+    </script>
+}

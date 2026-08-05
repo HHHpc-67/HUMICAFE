@@ -35,7 +35,7 @@
     {
         <div class="cart-content" style="">
 
-            <div class="cart-items" >
+            <div class="cart-items">
 
                 @foreach (var item in Model)
                 {
@@ -98,7 +98,7 @@
             </div>
 
 
-            <div class="cart-summary" >
+            <div class="cart-summary">
 
                 <h3>Order Summary</h3>
 
@@ -120,6 +120,31 @@
 
                 </div>
 
+                @* --- BỔ SUNG: Khung nhập Mã Giảm Giá --- *@
+                <div class="coupon-section my-3" style="margin: 15px 0;">
+                    <div class="input-group" style="display: flex; gap: 5px;">
+                        <input type="text" id="couponCodeInput" class="form-control" placeholder="Nhập mã giảm giá..." value="@Session["CouponCode"]" style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" />
+                        <button type="button" id="btnApplyCoupon" onclick="applyCoupon()" class="btn btn-dark" style="padding: 8px 15px; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Áp dụng</button>
+                    </div>
+                    <small id="couponMessage" style="display: block; margin-top: 5px; font-size: 13px;"></small>
+                </div>
+
+                @* --- BỔ SUNG: Hiển thị tiền giảm giá nếu đã áp dụng thành công --- *@
+                @{
+                    decimal subTotal = Model.Sum(x => x.Total);
+                    decimal discountAmount = Session["DiscountAmount"] != null ? Convert.ToDecimal(Session["DiscountAmount"]) : 0m;
+                    decimal finalTotal = subTotal - discountAmount;
+                    if (finalTotal < 0) { finalTotal = 0; }
+                }
+
+                @if (discountAmount > 0)
+                {
+                    <div class="summary-row text-success" style="color: #28a745;">
+                        <span>Mã giảm giá (@Session["CouponCode"])</span>
+                        <strong>-@String.Format("{0:N0} VNĐ", discountAmount)</strong>
+                    </div>
+                }
+
                 <hr />
 
                 <div class="summary-total">
@@ -127,7 +152,7 @@
                     <span>Tổng cộng</span>
 
                     <strong>
-                        @String.Format("{0:N0} VNĐ", Model.Sum(x => x.Total))
+                        @String.Format("{0:N0} VNĐ", finalTotal)
                     </strong>
 
                 </div>
@@ -143,3 +168,35 @@
     }
 
 </div>
+
+@* ---Script xử lý AJAX Áp dụng Mã Giảm Giá --- *@
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function applyCoupon() {
+            var code = $('#couponCodeInput').val().trim();
+            var $msg = $('#couponMessage');
+
+            $msg.removeClass('text-success text-danger').css('color', '');
+
+            $.ajax({
+                url: '@Url.Action("ApplyCoupon", "Cart")',
+                type: 'POST',
+                data: { couponCode: code },
+                success: function (res) {
+                    if (res.success) {
+                        $msg.css('color', 'green').text(res.message);
+                        setTimeout(function () {
+                            location.reload();
+                        }, 500);
+                    } else {
+                        $msg.css('color', 'red').text(res.message);
+                    }
+                },
+                error: function () {
+                    $msg.css('color', 'red').text('Có lỗi xảy ra, vui lòng thử lại sau.');
+                }
+            });
+        }
+    </script>
+}
