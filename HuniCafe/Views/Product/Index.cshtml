@@ -10,8 +10,8 @@
     <section class="product-page">
 
         <div class="product-header">
-            <h1>Our Menu</h1>
-            <p>Choose your favorite drink</p>
+            <h1>Menu</h1>
+            <p>Hãy chọn thức uống của bạn</p>
         </div>
 
         <div class="category-filter">
@@ -29,6 +29,27 @@
                     @category.CategoryName
 
                 </a>
+            }
+
+        </div>
+
+        <div class="search-container">
+
+            @using (Html.BeginForm("Index", "Product", FormMethod.Get))
+            {
+                <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm..." value="@ViewBag.Keyword" class="search-input" />
+
+                @* Giữ lại category *@
+                if (ViewBag.CategoryId != null)
+                {
+                    <input type="hidden"
+                           name="categoryId"
+                           value="@ViewBag.CategoryId" />
+                }
+
+                <button type="submit" class="search-btn">
+                    Tìm kiếm
+                </button>
             }
 
         </div>

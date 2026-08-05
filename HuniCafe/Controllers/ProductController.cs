@@ -1,12 +1,13 @@
 ﻿using HuniCafe.Models;
+using HuniCafe.Models.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using HuniCafe.Models.ViewModel;
-using System.Data.Entity;
-using System.Net;
+using System.Web.Razor.Tokenizer.Symbols;
 
 namespace HuniCafe.Controllers
 {
@@ -15,7 +16,7 @@ namespace HuniCafe.Controllers
         private readonly HuniCafeDB db = new HuniCafeDB();
 
         //MainPage - Product List
-        public ActionResult Index(int? categoryId)
+        public ActionResult Index(int? categoryId, string keyword)
         {
             var products = db.Products.Where(p => p.Category.IsActive == true).AsQueryable();
 
@@ -24,13 +25,26 @@ namespace HuniCafe.Controllers
                 products = products.Where(p => p.CategoryID == categoryId.Value);
             }
 
+
+            //tìm kiếm theo tên 
+
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                products = products.Where(p => p.ProductName.Contains(keyword));
+            }
+
             var model = new ProductViewModel
             {
                 Products = products.ToList(),
-                // 2. Chỉ lấy các Danh mục đang Active để hiện trên thanh Menu/Tab lọc
+                //Chỉ lấy các Danh mục đang Active để hiện trên thanh Menu/Tab lọc
                 Categories = db.Categories.Where(c => c.IsActive == true).ToList(),
                 SelectedCategory = categoryId
             };
+
+          
+
+            ViewBag.Keyword = keyword;
+            ViewBag.CategoryId = categoryId;
 
             return View(model);
         }
