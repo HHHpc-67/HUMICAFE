@@ -88,6 +88,20 @@ namespace HuniCafe.Controllers
             return View(recentOrders);
         }
 
+        // GET: Users/ManageUsers (Trang Quản lý danh sách Người dùng)
+        public ActionResult ManageUsers()
+        {
+            // Kiểm tra phân quyền: Phải là Admin mới được truy cập
+            if (Session["Role"]?.ToString() != "Admin")
+            {
+                return RedirectToAction("Login", "Users");
+            }
+
+            // Lấy toàn bộ danh sách người dùng từ Database
+            var users = db.Users.ToList();
+            return View(users);
+        }
+
         // GET: Users/Logout
         public ActionResult Logout()
         {
