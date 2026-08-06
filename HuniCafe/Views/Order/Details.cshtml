@@ -8,7 +8,37 @@
     <h2>Chi tiết đơn hàng #@Model.OrderID</h2>
 
     <p><strong>Ngày đặt:</strong> @Model.OrderDate.ToString("dd/MM/yyyy HH:mm")</p>
-    <p><strong>Trạng thái:</strong> <span class="badge bg-primary">@Model.Status</span></p>
+    <p>
+        <strong>Trạng thái:</strong>
+        <td>
+            @switch (Model.Status)
+            {
+                case "Pending":
+                    <span class="badge bg-warning text-dark">Chờ xử lý</span>
+                    break;
+
+                case "Confirmed":
+                    <span class="badge bg-info text-dark">Đã xác nhận</span>
+                    break;
+
+                case "Shipping":
+                    <span class="badge bg-primary">Đang giao tới</span>
+                    break;
+
+                case "Completed":
+                    <span class="badge bg-success">Hoàn thành</span>
+                    break;
+
+                case "Cancelled":
+                    <span class="badge bg-danger">Đã hủy</span>
+                    break;
+
+                default:
+                    <span class="badge bg-secondary">@Model.Status</span>
+                    break;
+            }
+        </td>
+    </p>
 
     <hr />
 
