@@ -9,127 +9,98 @@
 
     <div class="cart-header">
         <h2>Shopping Cart</h2>
-
-        <p>
-            @Model.Sum(x => x.Quantity) sản phẩm
-        </p>
+        <p>@Model.Sum(x => x.Quantity) sản phẩm</p>
     </div>
 
-
-    @if (Model.Count() == 0)
+    @if (!Model.Any())
     {
         <div class="empty-cart">
-
             <h3>Giỏ hàng đang trống</h3>
-
             <p>Hãy chọn những sản phẩm yêu thích của bạn.</p>
-
-            <a href="@Url.Action("Index", "Product")"
-               class="continue-shopping">
+            <a href="@Url.Action("Index", "Product")" class="continue-shopping">
                 Tiếp tục mua hàng
             </a>
-
         </div>
     }
     else
     {
-        <div class="cart-content" style="">
+        <div class="cart-content">
 
             <div class="cart-items">
-
                 @foreach (var item in Model)
                 {
                     <div class="cart-item">
-
                         <div class="cart-product">
-
-                            <img src="@item.Image"
-                                 alt="@item.ProductName" />
-
+                            <img src="@item.Image" alt="@item.ProductName" />
                             <div>
                                 <h3>@item.ProductName</h3>
-
-                                <p>
-                                    @String.Format("{0:N0} VNĐ", item.Price)
-                                </p>
+                                <p>@String.Format("{0:N0} VNĐ", item.Price)</p>
                             </div>
-
                         </div>
-
 
                         <div class="cart-quantity">
-
-                            <a href="@Url.Action("Decrease", "Cart", new { id = item.ProductID })"
-                               class="quantity-btn">
-                                -
-                            </a>
-
+                            <a href="@Url.Action("Decrease", "Cart", new { id = item.ProductID })" class="quantity-btn">-</a>
                             <span>@item.Quantity</span>
-
-                            <a href="@Url.Action("Increase", "Cart", new { id = item.ProductID })"
-                               class="quantity-btn">
-                                +
-                            </a>
-
-
+                            <a href="@Url.Action("Increase", "Cart", new { id = item.ProductID })" class="quantity-btn">+</a>
                         </div>
-
 
                         <div class="cart-total">
-
-                            <strong>
-                                @String.Format("{0:N0} VNĐ", item.Total)
-                            </strong>
-
+                            <strong>@String.Format("{0:N0} VNĐ", item.Total)</strong>
                         </div>
-
 
                         <div class="cart-remove">
-
-                            <a href="@Url.Action("Remove","Cart", new {id = item.ProductID})" class="remove-btn">
-                                x
-                            </a>
-
+                            <a href="@Url.Action("Remove","Cart", new { id = item.ProductID })" class="remove-btn">x</a>
                         </div>
-
                     </div>
                 }
-
             </div>
 
-
             <div class="cart-summary">
-
                 <h3>Order Summary</h3>
 
                 <div class="summary-row">
-
                     <span>Tạm tính</span>
-
-                    <strong>
-                        @String.Format("{0:N0} VNĐ", Model.Sum(x => x.Total))
-                    </strong>
-
+                    <strong>@String.Format("{0:N0} VNĐ", Model.Sum(x => x.Total))</strong>
                 </div>
 
                 <div class="summary-row">
-
                     <span>Phí giao hàng</span>
-
                     <strong>0 VNĐ</strong>
-
                 </div>
 
-                @* --- BỔ SUNG: Khung nhập Mã Giảm Giá --- *@
+                <!-- --- KHUNG NHẬP MÃ GIẢM GIÁ --- -->
                 <div class="coupon-section my-3" style="margin: 15px 0;">
                     <div class="input-group" style="display: flex; gap: 5px;">
-                        <input type="text" id="couponCodeInput" class="form-control" placeholder="Nhập mã giảm giá..." value="@Session["CouponCode"]" style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" />
-                        <button type="button" id="btnApplyCoupon" onclick="applyCoupon()" class="btn btn-dark" style="padding: 8px 15px; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Áp dụng</button>
+                        <input type="text"
+                               id="couponCodeInput"
+                               class="form-control"
+                               placeholder="Nhập mã giảm giá..."
+                               value="@Session["CouponCode"]"
+                               style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; text-transform: uppercase;" />
+
+                        <button type="button"
+                                id="btnApplyCoupon"
+                                onclick="applyCoupon()"
+                                class="btn btn-dark"
+                                style="padding: 8px 15px; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer;">
+                            Áp dụng
+                        </button>
+
+                        @if (Session["CouponCode"] != null)
+                        {
+                            <button type="button"
+                                    onclick="removeCoupon()"
+                                    class="btn btn-danger"
+                                    title="Hủy mã giảm giá"
+                                    style="padding: 8px 12px; background: #dc3545; color: #fff; border: none; border-radius: 4px; cursor: pointer;">
+                                &#10005;
+                            </button>
+                        }
                     </div>
                     <small id="couponMessage" style="display: block; margin-top: 5px; font-size: 13px;"></small>
                 </div>
 
-                @* --- BỔ SUNG: Hiển thị tiền giảm giá nếu đã áp dụng thành công --- *@
+                <!-- --- HIỂN THỊ TIỀN GIẢM GIÁ --- -->
                 @{
                     decimal subTotal = Model.Sum(x => x.Total);
                     decimal discountAmount = Session["DiscountAmount"] != null ? Convert.ToDecimal(Session["DiscountAmount"]) : 0m;
@@ -139,29 +110,22 @@
 
                 @if (discountAmount > 0)
                 {
-                    <div class="summary-row text-success" style="color: #28a745;">
+                    <div class="summary-row text-success" style="color: #28a745; font-weight: 500;">
                         <span>Mã giảm giá (@Session["CouponCode"])</span>
                         <strong>-@String.Format("{0:N0} VNĐ", discountAmount)</strong>
                     </div>
                 }
 
-                <hr />
+                <hr style="margin: 15px 0; border: 0; border-top: 1px solid #eee;" />
 
                 <div class="summary-total">
-
                     <span>Tổng cộng</span>
-
-                    <strong>
-                        @String.Format("{0:N0} VNĐ", finalTotal)
-                    </strong>
-
+                    <strong>@String.Format("{0:N0} VNĐ", finalTotal)</strong>
                 </div>
 
-                <a href="@Url.Action("Checkout","Cart")"
-                   class="checkout-btn">
+                <a href="@Url.Action("Checkout", "Cart")" class="checkout-btn">
                     Đặt hàng
                 </a>
-
             </div>
 
         </div>
@@ -169,15 +133,21 @@
 
 </div>
 
-@* ---Script xử lý AJAX Áp dụng Mã Giảm Giá --- *@
+<!-- --- SCRIPT XỬ LÝ AJAX --- -->
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        // Áp dụng Mã Giảm Giá
         function applyCoupon() {
             var code = $('#couponCodeInput').val().trim();
             var $msg = $('#couponMessage');
 
-            $msg.removeClass('text-success text-danger').css('color', '');
+            if (code === "") {
+                $msg.css('color', 'red').text('Vui lòng nhập mã giảm giá.');
+                return;
+            }
+
+            $msg.text('Đang kiểm tra...').css('color', '#666');
 
             $.ajax({
                 url: '@Url.Action("ApplyCoupon", "Cart")',
@@ -195,6 +165,20 @@
                 },
                 error: function () {
                     $msg.css('color', 'red').text('Có lỗi xảy ra, vui lòng thử lại sau.');
+                }
+            });
+        }
+
+        // Hủy Mã Giảm Giá
+        function removeCoupon() {
+            $.ajax({
+                url: '@Url.Action("RemoveCoupon", "Cart")',
+                type: 'POST',
+                success: function (res) {
+                    location.reload();
+                },
+                error: function () {
+                    alert('Không thể gỡ mã lúc này. Vui lòng thử lại!');
                 }
             });
         }

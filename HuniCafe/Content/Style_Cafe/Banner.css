@@ -1,5 +1,4 @@
-﻿
-.huni-hero {
+﻿.huni-hero {
     width: 100%;
     height: 350px;
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/Content/Images/BackGroundCafe.png');
@@ -11,9 +10,8 @@
     align-items: center;
     text-align: center;
     padding: 20px;
-    margin-top: 80px;
+    margin-top: 0px;
 }
-
 
 .hero-content h1 {
     color: #ffffff;
@@ -21,13 +19,15 @@
     font-weight: 800;
     margin-bottom: 10px;
 }
+
     .hero-content h1 .text-huni {
         color: #ffffff;
     }
 
     .hero-content h1 .text-cafe {
-        color: #A4724E; 
+        color: #A4724E;
     }
+
 .hero-content p {
     color: #f0f0f0;
     font-size: 18px;
@@ -35,28 +35,25 @@
     font-weight: 500;
 }
 
-
 /* Nút Đặt Hàng */
 .btn-huni-order {
     display: inline-block;
     border-radius: 8px;
-    background-color: #A4724E; 
-    color: white !important; 
+    background-color: #A4724E;
+    color: white !important;
     padding: 12px 28px;
     font-weight: 600;
-    text-decoration: none; 
-    transition: all 0.4s ease; 
+    text-decoration: none;
+    transition: all 0.4s ease;
 }
 
-   
     .btn-huni-order:hover {
-        background-color: #142F55; 
+        background-color: #142F55;
         color: white !important;
-        transform: translateY(-4px); 
-        box-shadow: 0 6px 15px rgba(20, 47, 85, 0.3); /* 6px Y, 0px X, 15 blur */
+        transform: translateY(-4px);
+        box-shadow: 0 6px 15px rgba(20, 47, 85, 0.3);
         text-decoration: none;
     }
-
 
 /* Category */
 .huni-cate {
@@ -64,7 +61,6 @@
     text-align: center;
 }
 
-   
     .huni-cate h2 {
         color: #142F55;
         font-weight: 700;
@@ -72,18 +68,17 @@
         margin-bottom: 30px;
     }
 
-
 .huni-category-list {
     display: flex;
     justify-content: center;
     gap: 30px;
-    flex-wrap: wrap; /* Tự động xuống dòng nếu màn hình nhỏ */
+    flex-wrap: wrap;
 }
 
 /* cate card */
 .huni-category-card {
     width: 220px;
-    height: 150px; 
+    height: 150px;
     background: white;
     border-radius: 12px;
     display: flex;
@@ -91,17 +86,15 @@
     align-items: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02); /* Thêm bóng đổ nhẹ ban đầu */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
 }
-
 
     .huni-category-card:hover {
         transform: translateY(-6px);
-        border-color: #A4724E; 
-        box-shadow: 0 10px 20px rgba(164, 114, 78, 0.15); 
+        border-color: #A4724E;
+        box-shadow: 0 10px 20px rgba(164, 114, 78, 0.15);
     }
 
- 
     .huni-category-card h3 {
         font-size: 20px;
         font-weight: 700;
@@ -109,7 +102,6 @@
         margin: 0;
         transition: color 0.3s ease;
     }
-
 
     .huni-category-card:hover h3 {
         color: #A4724E;

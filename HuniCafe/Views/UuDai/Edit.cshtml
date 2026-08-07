@@ -8,7 +8,7 @@
 <div class="container-fluid py-3">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="text-dark font-weight-bold"><i class="fas fa-edit mr-2"></i>Cập Nhật Mã Ưu Đãi: <span class="text-primary">@Model.Code</span></h3>
-        <a href="@Url.Action("Index", "UuDai")" class="btn btn-secondary">
+        <a href="@Url.Action("CouponAdmin", "UuDai")" class="btn btn-secondary">
             <i class="fas fa-arrow-left mr-1"></i> Quay lại
         </a>
     </div>
@@ -31,23 +31,42 @@
 
                 <div class="form-group col-md-6">
                     <label class="font-weight-bold">Loại Giảm Giá</label>
-                    <select name="DiscountType" class="form-control">
+                    <select name="DiscountType" id="DiscountTypeSelect" class="form-control" onchange="updateDiscountUI()">
                         <option value="Percentage" @(Model.DiscountType == "Percentage" ? "selected" : "")>Phần trăm (%)</option>
-                        <option value="FixedAmount" @(Model.DiscountType == "FixedAmount" ? "selected" : "")>Số tiền cố định (VNĐ)</option>
+                        <option value="Fixed" @(Model.DiscountType == "Fixed" ? "selected" : "")>Số tiền cố định (VNĐ)</option>
                     </select>
                 </div>
             </div>
 
             <div class="form-row">
+                <!-- Giá trị giảm: Bỏ đuôi .00 và ép về dạng nguyên -->
                 <div class="form-group col-md-6">
-                    <label class="font-weight-bold">Giá Trị Giảm <span class="text-danger">*</span></label>
-                    @Html.EditorFor(model => model.DiscountValue, new { htmlAttributes = new { @class = "form-control", @type = "number", @step = "any", @required = "required" } })
+                    <label class="font-weight-bold" id="lblDiscountValue">Giá Trị Giảm <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <input type="number"
+                               name="DiscountValue"
+                               id="DiscountValueInput"
+                               class="form-control"
+                               step="1"
+                               min="1"
+                               required
+                               value="@(Model.DiscountValue % 1 == 0 ? Convert.ToInt64(Model.DiscountValue).ToString() : Model.DiscountValue.ToString("0.##"))" />
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="discountUnit">%</span>
+                        </div>
+                    </div>
                     @Html.ValidationMessageFor(model => model.DiscountValue, "", new { @class = "text-danger small" })
                 </div>
 
+                <!-- Đơn tối thiểu: Bỏ đuôi .00 -->
                 <div class="form-group col-md-6">
                     <label class="font-weight-bold">Đơn Tối Thiểu (VNĐ)</label>
-                    @Html.EditorFor(model => model.MinimumOrderValue, new { htmlAttributes = new { @class = "form-control", @type = "number", @step = "any" } })
+                    <input type="number"
+                           name="MinimumOrderValue"
+                           class="form-control"
+                           step="1000"
+                           min="0"
+                           value="@Convert.ToInt64(Model.MinimumOrderValue)" />
                     @Html.ValidationMessageFor(model => model.MinimumOrderValue, "", new { @class = "text-danger small" })
                 </div>
             </div>
@@ -93,8 +112,29 @@
 
             <div class="mt-3 pt-3 border-top">
                 <button type="submit" class="btn btn-primary font-weight-bold"><i class="fas fa-save mr-1"></i> Lưu Cập Nhật</button>
-                <a href="@Url.Action("Index", "UuDai")" class="btn btn-secondary font-weight-bold ml-2">Hủy</a>
+                <a href="@Url.Action("CouponAdmin", "UuDai")" class="btn btn-secondary font-weight-bold ml-2">Hủy</a>
             </div>
         </div>
     }
 </div>
+
+<!-- JS CẬP NHẬT ĐƠN VỊ % VÀ VNĐ DỰA THEO LOẠI GIẢM GIÁ -->
+<script>
+    function updateDiscountUI() {
+        var type = document.getElementById("DiscountTypeSelect").value;
+        var unit = document.getElementById("discountUnit");
+        var input = document.getElementById("DiscountValueInput");
+
+        if (type === "Percentage") {
+            unit.innerText = "%";
+            input.setAttribute("max", "100");
+        } else {
+            unit.innerText = "VNĐ";
+            input.removeAttribute("max");
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        updateDiscountUI();
+    });
+</script>

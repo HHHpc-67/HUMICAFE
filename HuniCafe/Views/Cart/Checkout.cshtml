@@ -1,7 +1,7 @@
 ﻿@model HuniCafe.Models.ViewModel.CheckoutViewModel
 
 @{
-    ViewBag.Title = "Checkout";
+    ViewBag.Title = "Thanh toán đơn hàng";
     Layout = "~/Views/LayOutPage/_LayoutMainPage.cshtml";
 
     // 📌 Lấy số tiền giảm từ Session
@@ -10,105 +10,110 @@
     decimal finalTotal = subTotal - discountAmount;
     if (finalTotal < 0) { finalTotal = 0; }
 }
+
 <link href="~/Content/bootstrap-grid.css" rel="stylesheet" />
-<div class="container">
+
+<div class="container py-4">
 
     @using (Html.BeginForm("Checkout", "Cart", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 
+        <!-- Input gửi thông tin giảm giá về Controller khi Submit -->
+        <input type="hidden" name="CouponCode" value="@Session["CouponCode"]" />
+        <input type="hidden" name="DiscountAmount" value="@discountAmount" />
+        <input type="hidden" name="FinalTotal" value="@finalTotal" />
+
         <div class="checkout-container">
 
+            <!-- CỘT TRÁI: THÔNG TIN GIAO HÀNG -->
             <div class="checkout-left">
+                <h2 class="mb-3">Thông tin giao hàng</h2>
 
-                <h2>Thông tin giao hàng</h2>
-
-                <div class="form-group">
-                    <label>Họ và tên</label>
-                    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
+                <div class="form-group mb-3">
+                    <label class="font-weight-bold">Họ và tên <span class="text-danger">*</span></label>
+                    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", @placeholder = "Nhập họ và tên người nhận" })
+                    @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger small" })
                 </div>
 
-                <div class="form-group">
-                    <label>Email</label>
+                <div class="form-group mb-3">
+                    <label class="font-weight-bold">Email</label>
                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = "readonly" })
-                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger small" })
                 </div>
 
-                <div class="form-group">
-                    <label>Số điện thoại</label>
-                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                <div class="form-group mb-3">
+                    <label class="font-weight-bold">Số điện thoại <span class="text-danger">*</span></label>
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @placeholder = "Nhập số điện thoại liên hệ" })
+                    @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger small" })
                 </div>
 
-                <div class="form-group">
-                    <label>Địa chỉ giao hàng</label>
-                    @Html.TextAreaFor(m => m.Address, new
-               {
-                   @class = "form-control",
-                   rows = "3",
+                <div class="form-group mb-3">
+                    <label class="font-weight-bold">Địa chỉ giao hàng <span class="text-danger">*</span></label>
+                    @Html.TextAreaFor(m => m.Address, new { @class = "form-control", @rows = "3", @placeholder = "Nhập địa chỉ nhận hàng chi tiết..." })
+                    @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger small" })
+                </div>
 
-               }) @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                <div class="form-group mb-3">
+                    <label class="font-weight-bold">Ghi chú đơn hàng</label>
+                    @Html.TextAreaFor(m => m.Note, new { @class = "form-control", @rows = "3", @placeholder = "Ghi chú thêm về thời gian giao, ít đường/ít đá..." })
+                </div>
+            </div>
+
+            <!-- CỘT PHẢI: TỔNG QUAN ĐƠN HÀNG -->
+            <div class="checkout-right">
+                <h2 class="mb-3">Đơn hàng của bạn</h2>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sản phẩm</th>
+                            <th class="text-center">SL</th>
+                            <th class="text-right">Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Cart)
+                        {
+                            <tr>
+                                <td>@item.ProductName</td>
+                                <td class="text-center">@item.Quantity</td>
+                                <td class="text-right">@String.Format("{0:N0} VNĐ", item.Total)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="checkout-summary mt-3">
+                    <!-- Tạm tính -->
+                    <div style="display: flex; justify-content: space-between; margin-top: 10px; font-weight: 500;">
+                        <span>Tạm tính:</span>
+                        <span>@String.Format("{0:N0} VNĐ", subTotal)</span>
+                    </div>
+
+                    <!-- Hiển thị giảm giá nếu có áp mã -->
+                    @if (discountAmount > 0)
+                    {
+                        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-weight: 500; color: #28a745;">
+                            <span>Giảm giá (@Session["CouponCode"]):</span>
+                            <span>-@String.Format("{0:N0} VNĐ", discountAmount)</span>
+                        </div>
+                    }
+
+                    <hr style="margin: 15px 0;" />
+
+                    <!-- Tổng cộng -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <span style="font-size: 18px; font-weight: bold;">Tổng tiền:</span>
+                        <span style="font-size: 22px; font-weight: bold; color: #d9534f;">@String.Format("{0:N0} VNĐ", finalTotal)</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="checkout-btn w-100">
+                    <i class="fas fa-check-circle mr-1"></i> Xác nhận đặt hàng
+                </button>
+            </div>
 
         </div>
-
-        <div class="form-group">
-            <label>Ghi chú</label>
-            @Html.TextAreaFor(m => m.Note, new
-       {
-           @class = "form-control",
-           rows = "3"
-       })
-        </div>
-
-    </div>
-
-    <div class="checkout-right">
-
-        <h2>Đơn hàng của bạn</h2>
-
-        <table class="table">
-            <tr>
-                <th>Sản phẩm</th>
-                <th>SL</th>
-                <th>Thành tiền</th>
-            </tr>
-
-            @foreach (var item in Model.Cart)
-            {
-                <tr>
-                    <td>@item.ProductName</td>
-                    <td>@item.Quantity</td>
-                    <td>@String.Format("{0:N0} VNĐ", item.Total)</td>
-                </tr>
-            }
-        </table>
-
-        @* Hiển thị giảm giá nếu có áp mã *@
-        @if (discountAmount > 0)
-        {
-            <div style="display: flex; justify-content: space-between; margin-top: 15px; font-weight: 500; color: #28a745;">
-                <span>Tạm tính:</span>
-                <span>@String.Format("{0:N0} VNĐ", subTotal)</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 5px; font-weight: 500; color: #28a745;">
-                <span>Giảm giá (@Session["CouponCode"]):</span>
-                <span>-@String.Format("{0:N0} VNĐ", discountAmount)</span>
-            </div>
-            <hr />
-        }
-
-        <h3>
-            Tổng tiền:
-            @String.Format("{0:N0} VNĐ", finalTotal)
-        </h3>
-
-        <button type="submit" class="checkout-btn">
-            Xác nhận đặt hàng
-        </button>
-
-    </div>
-
-</div>
-}
+    }
 </div>

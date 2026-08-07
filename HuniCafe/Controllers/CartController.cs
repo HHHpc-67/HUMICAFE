@@ -22,6 +22,9 @@ namespace HuniCafe.Controllers
                 cart = new List<Cart>();
             }
 
+            // Tự động kiểm tra lại tính hợp lệ của mã giảm giá khi xem giỏ hàng
+            ValidateSessionCoupon(cart);
+
             return View(cart);
         }
 
@@ -68,6 +71,9 @@ namespace HuniCafe.Controllers
 
             Session["Cart"] = cart;
 
+            // Kiểm tra lại Coupon khi giỏ hàng thay đổi
+            ValidateSessionCoupon(cart);
+
             return RedirectToAction("Index", "Cart");
         }
 
@@ -86,6 +92,7 @@ namespace HuniCafe.Controllers
                 }
 
                 Session["Cart"] = cart;
+                ValidateSessionCoupon(cart);
             }
 
             return RedirectToAction("Index");
@@ -111,6 +118,7 @@ namespace HuniCafe.Controllers
                 }
 
                 Session["Cart"] = cart;
+                ValidateSessionCoupon(cart);
             }
 
             return RedirectToAction("Index");
@@ -131,12 +139,56 @@ namespace HuniCafe.Controllers
                 }
 
                 Session["Cart"] = cart;
+                ValidateSessionCoupon(cart);
             }
 
             return RedirectToAction("Index");
         }
 
-        // 📌 BỔ SUNG: ACTION XỬ LÝ ÁP DỤNG MÃ GIẢM GIÁ (AJAX)
+        //ACTION XỬ LÝ CẬP NHẬT SỐ LƯỢNG TRỰC TIẾP (AJAX)
+        [HttpPost]
+        public JsonResult UpdateQuantity(int id, int quantity)
+        {
+            var cart = Session["Cart"] as List<Cart>;
+
+            if (cart != null)
+            {
+                var item = cart.FirstOrDefault(x => x.ProductID == id);
+
+                if (item != null)
+                {
+                    if (quantity <= 0)
+                    {
+                        cart.Remove(item);
+                    }
+                    else
+                    {
+                        item.Quantity = quantity;
+                    }
+
+                    Session["Cart"] = cart;
+                    ValidateSessionCoupon(cart);
+
+                    decimal subTotal = cart.Sum(x => x.Total);
+                    decimal discount = Session["DiscountAmount"] != null ? Convert.ToDecimal(Session["DiscountAmount"]) : 0m;
+                    decimal total = subTotal - discount;
+
+                    return Json(new
+                    {
+                        success = true,
+                        itemTotal = item.Total,
+                        subTotal = subTotal,
+                        discount = discount,
+                        total = total < 0 ? 0 : total,
+                        cartCount = cart.Sum(x => x.Quantity)
+                    });
+                }
+            }
+
+            return Json(new { success = false, message = "Không tìm thấy sản phẩm trong giỏ hàng!" });
+        }
+
+        // ACTION XỬ LÝ ÁP DỤNG MÃ GIẢM GIÁ (AJAX)
         [HttpPost]
         public JsonResult ApplyCoupon(string couponCode)
         {
@@ -147,7 +199,6 @@ namespace HuniCafe.Controllers
                 return Json(new { success = true, message = "Đã hủy áp dụng mã giảm giá." });
             }
 
-            // Tìm mã không phân biệt hoa thường và đang kích hoạt
             var coupon = db.Coupons.FirstOrDefault(c => c.Code.ToLower() == couponCode.Trim().ToLower() && c.IsActive);
 
             if (coupon == null)
@@ -170,21 +221,20 @@ namespace HuniCafe.Controllers
 
             if (subTotal < coupon.MinimumOrderValue)
             {
-                return Json(new { success = false, message = $"Đơn hàng phải đạt tối thiểu {coupon.MinimumOrderValue.ToString("N0")} VNĐ để áp dụng mã này!" });
+                return Json(new { success = false, message = $"Đơn hàng phải đạt tối thiểu {coupon.MinimumOrderValue:N0} VNĐ để áp dụng mã này!" });
             }
 
-            // Tính số tiền giảm
             decimal discount = 0m;
             if (coupon.DiscountType == "Percentage")
             {
-                discount = subTotal * (coupon.DiscountValue / 100m); // tính phần trăm giảm giá 100m là để tránh lỗi chia cho 0
+                discount = subTotal * (coupon.DiscountValue / 100m);
             }
             else
             {
                 discount = coupon.DiscountValue;
             }
 
-            if (discount > subTotal) // đảm bảo không giảm quá số tiền đơn hàng
+            if (discount > subTotal)
             {
                 discount = subTotal;
             }
@@ -192,7 +242,16 @@ namespace HuniCafe.Controllers
             Session["CouponCode"] = coupon.Code;
             Session["DiscountAmount"] = discount;
 
-            return Json(new { success = true, message = "Áp dụng mã giảm giá thành công!" });
+            return Json(new { success = true, message = "Áp dụng mã giảm giá thành công!", discount = discount });
+        }
+
+        // ACTION XÓA MÃ GIẢM GIÁ
+        [HttpPost]
+        public JsonResult RemoveCoupon()
+        {
+            Session["CouponCode"] = null;
+            Session["DiscountAmount"] = 0m;
+            return Json(new { success = true, message = "Đã gỡ mã giảm giá." });
         }
 
         [HttpGet]
@@ -209,6 +268,8 @@ namespace HuniCafe.Controllers
             {
                 return RedirectToAction("Index");
             }
+
+            ValidateSessionCoupon(cart);
 
             int userId = (int)Session["UserID"];
             var user = db.Users.Find(userId);
@@ -245,64 +306,129 @@ namespace HuniCafe.Controllers
             model.Cart = cart;
             model.TotalAmount = cart.Sum(x => x.Total);
 
-            if (!ModelState.IsValid) //kiểm tra dữ liệu hợp lệ 
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
+            ValidateSessionCoupon(cart);
+
             int userId = (int)Session["UserID"];
 
-            // 📌 BỔ SUNG: Tính toán tổng tiền thực tế sau khi trừ giảm giá
             decimal subTotal = cart.Sum(x => x.Total);
             decimal discountAmount = Session["DiscountAmount"] != null ? Convert.ToDecimal(Session["DiscountAmount"]) : 0m;
             decimal finalTotal = subTotal - discountAmount;
             if (finalTotal < 0) { finalTotal = 0; }
 
-            Order order = new Order
+            // Sử dụng Transaction để đảm bảo tính toàn vẹn dữ liệu khi tạo Đơn hàng và Cập nhật Coupon
+            using (var transaction = db.Database.BeginTransaction())
             {
-                UserID = userId,
-                OrderDate = DateTime.Now,
-                TotalAmount = finalTotal, // Đã trừ tiền giảm giá
-                Status = OrderStatus.Pending,
-                Phone = model.Phone,
-                Address = model.Address
-            };
-
-            foreach (var item in cart) // Thêm chi tiết đơn hàng
-            {
-                order.OrderDetails.Add(new OrderDetail
+                try
                 {
-                    ProductID = item.ProductID,
-                    Quantity = item.Quantity,
-                    Price = item.Price
-                });
-            }
+                    Order order = new Order
+                    {
+                        UserID = userId,
+                        OrderDate = DateTime.Now,
+                        TotalAmount = finalTotal,
+                        Status = OrderStatus.Pending,
+                        Phone = model.Phone,
+                        Address = model.Address
+                    };
 
-            // 📌 BỔ SUNG: Tăng lượt sử dụng của Coupon trong CSDL (nếu có dùng mã)
-            if (Session["CouponCode"] != null)
-            {
-                string code = Session["CouponCode"].ToString();
-                var coupon = db.Coupons.FirstOrDefault(c => c.Code == code);
-                if (coupon != null)
+                    foreach (var item in cart)
+                    {
+                        order.OrderDetails.Add(new OrderDetail
+                        {
+                            ProductID = item.ProductID,
+                            Quantity = item.Quantity,
+                            Price = item.Price
+                        });
+                    }
+
+                    if (Session["CouponCode"] != null)
+                    {
+                        string code = Session["CouponCode"].ToString();
+                        var coupon = db.Coupons.FirstOrDefault(c => c.Code == code);
+                        if (coupon != null)
+                        {
+                            coupon.UsedQuantity += 1;
+                        }
+                    }
+
+                    db.Orders.Add(order);
+                    db.SaveChanges();
+
+                    transaction.Commit();
+
+                    // Dọn dẹp Session
+                    Session.Remove("Cart");
+                    Session.Remove("CouponCode");
+                    Session.Remove("DiscountAmount");
+
+                    return RedirectToAction("Success");
+                }
+                catch (Exception)
                 {
-                    coupon.UsedQuantity += 1;
+                    transaction.Rollback();
+                    ModelState.AddModelError("", "Đã xảy ra lỗi trong quá trình xử lý đơn hàng. Vui lòng thử lại!");
+                    return View(model);
                 }
             }
-
-            db.Orders.Add(order);
-            db.SaveChanges();
-
-            // Dọn dẹp Session
-            Session.Remove("Cart");
-            Session.Remove("CouponCode");
-            Session.Remove("DiscountAmount");
-
-            return RedirectToAction("Success");
         }
 
         public ActionResult Success()
         {
             return View();
+        }
+
+        //HELPER METHOD: TỰ ĐỘNG TÍNH LẠI HOẶC HỦY COUPON NẾU GIỎ HÀNG THAY ĐỔI
+        private void ValidateSessionCoupon(List<Cart> cart)
+        {
+            if (Session["CouponCode"] == null) return;
+
+            if (cart == null || !cart.Any())
+            {
+                Session["CouponCode"] = null;
+                Session["DiscountAmount"] = 0m;
+                return;
+            }
+
+            string code = Session["CouponCode"].ToString();
+            var coupon = db.Coupons.FirstOrDefault(c => c.Code.ToLower() == code.ToLower() && c.IsActive);
+
+            decimal subTotal = cart.Sum(x => x.Total);
+
+            if (coupon == null || DateTime.Now < coupon.StartDate || DateTime.Now > coupon.EndDate || coupon.UsedQuantity >= coupon.Quantity || subTotal < coupon.MinimumOrderValue)
+            {
+                // Hủy mã nếu không còn đủ điều kiện
+                Session["CouponCode"] = null;
+                Session["DiscountAmount"] = 0m;
+            }
+            else
+            {
+                // Tính lại số tiền giảm nếu số lượng sản phẩm thay đổi
+                decimal discount = 0m;
+                if (coupon.DiscountType == "Percentage")
+                {
+                    discount = subTotal * (coupon.DiscountValue / 100m);
+                }
+                else
+                {
+                    discount = coupon.DiscountValue;
+                }
+
+                if (discount > subTotal) { discount = subTotal; }
+                Session["DiscountAmount"] = discount;
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }
