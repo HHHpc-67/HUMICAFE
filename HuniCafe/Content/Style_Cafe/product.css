@@ -2,6 +2,13 @@
 }
 
 /* Products */
+
+.empty-product {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: #666;
+}
 .featured {
     margin-top: 50px;
     text-align: center;

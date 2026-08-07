@@ -71,6 +71,7 @@
             <div class="form-group">
                 <label class="font-weight-bold">Mô Tả</label>
                 @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = "3" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
 
             <div class="mt-3">

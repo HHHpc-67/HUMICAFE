@@ -14,7 +14,7 @@ namespace HuniCafe.Controllers
         private readonly HuniCafeDB db = new HuniCafeDB();
 
         // 1. DANH SÁCH DANH MỤC
-        // GET: Category/CategoryPage
+  
         public ActionResult CategoryPage()
         {
             var categories = db.Categories.ToList();
@@ -28,7 +28,7 @@ namespace HuniCafe.Controllers
             return View();
         }
 
-        // POST: Category/Create
+     
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CategoryID,CategoryName,CategoryDescription,IsActive")] Category category)

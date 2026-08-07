@@ -55,15 +55,25 @@
         </div>
 
 
-        <div class="product-list">
+        @if (!Model.Products.Any())
+        {
+            <div class="empty-product">
+                Không tìm thấy sản phẩm phù hợp.
+            </div>
+        }
+        else
+        {
 
-            @foreach (var product in Model.Products)
-            {
-                @Html.Partial("~/Views/LayOutPage/_ProductCard.cshtml", product)
-            }
+            <div class="product-list">
 
-        </div>
+                @foreach (var product in Model.Products)
+                {
 
+                    @Html.Partial("~/Views/LayOutPage/_ProductCard.cshtml", product)
+                }
+
+            </div>
+        }
     </section>
 
 </div>

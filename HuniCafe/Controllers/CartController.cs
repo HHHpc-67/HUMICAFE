@@ -177,14 +177,14 @@ namespace HuniCafe.Controllers
             decimal discount = 0m;
             if (coupon.DiscountType == "Percentage")
             {
-                discount = subTotal * (coupon.DiscountValue / 100m);
+                discount = subTotal * (coupon.DiscountValue / 100m); // tính phần trăm giảm giá 100m là để tránh lỗi chia cho 0
             }
             else
             {
                 discount = coupon.DiscountValue;
             }
 
-            if (discount > subTotal)
+            if (discount > subTotal) // đảm bảo không giảm quá số tiền đơn hàng
             {
                 discount = subTotal;
             }
@@ -245,7 +245,7 @@ namespace HuniCafe.Controllers
             model.Cart = cart;
             model.TotalAmount = cart.Sum(x => x.Total);
 
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid) //kiểm tra dữ liệu hợp lệ 
             {
                 return View(model);
             }
@@ -268,7 +268,7 @@ namespace HuniCafe.Controllers
                 Address = model.Address
             };
 
-            foreach (var item in cart)
+            foreach (var item in cart) // Thêm chi tiết đơn hàng
             {
                 order.OrderDetails.Add(new OrderDetail
                 {
